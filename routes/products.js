@@ -2,25 +2,22 @@ var express = require('express')
 var db = require('../models/db_connect')
 var router = express.Router()
 
-//取得全部保單資訊
+//取得 保單資訊
 router.get('/', (req, res) => {
-  db.query('SELECT * FROM products')
-  .then(result =>{
-    res.json(result)
-  })
-})
+  const whereString = Object.keys(req.query).map((key, idx) => {
+     console.log(key ,idx)
+     return `${key} LIKE '%${Object.values(req.query)[idx]}%'`
+   }).join(' AND ')
 
-//取得篩選條件後的保單資訊
-router.get('/filter', (req, res) => {
-  type = Object.keys(req.query) //typeof type = array
-  condition = Object.values(req.query) //typeof condition = array
+  const sqlCommand = `SELECT * FROM products WHERE ${whereString.length === 0 ? 1 : whereString};`
+  console.log(sqlCommand)
 
-  let sql_command = `SELECT * FROM products WHERE ${type.toString()} LIKE '%${condition.toString()}%'`
-
-  db.query(sql_command)
+  db.query(sqlCommand)
   .then(result => {
     res.json(result)
   })
 })
+
+//收藏
 
 module.exports = router
