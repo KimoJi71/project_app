@@ -2,7 +2,7 @@ var express = require('express')
 var db = require('../models/db_connect')
 var router = express.Router()
 
-//取得 保單資訊
+//取得商品
 router.get('/', (req, res) => {
   const whereString = Object.keys(req.query).map((key, idx) => {
      console.log(key ,idx)

@@ -2,9 +2,13 @@ var express = require('express')
 var db = require('../models/db_connect')
 var router = express.Router()
 
-//新增、編輯
+//取得留言
 
-//刪除
+//新增留言
+
+//編輯留言
+
+//刪除留言
 
 //按讚、檢舉
 
