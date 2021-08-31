@@ -52,18 +52,48 @@ router.post('/register', (req, res) => {
             return `'${memData[key]}'`
         }).join(', ')
     }
+
     sqlCommand = `INSERT INTO members (${insertRows}) VALUES (${insertValues})`
     console.log(sqlCommand)
 
-    db.query(sqlCommand)
-    .then((err, result) => {
-        // if(err) throw err
-        console.log('1 record inserted.')
+    //尋找是否有重複的帳號
+    db.query(`SELECT memAccount FROM members WHERE memAccount = '${req.body.memAccount}'`) 
+    .then ((result) => {
+        //帳號已被註冊
+        if(result[0][0] !== undefined) {
+            res.json({
+                status: '註冊失敗'
+            })
+        } else {
+            db.query(sqlCommand)
+            .then((err, results) => {
+                // if(err) throw err
+                console.log('1 record inserted.')
+                res.json({
+                    status: '註冊成功'
+                })
+            })
+        }
     })
 })
 
 //會員登入驗證
-// router.get('/auth', (req,res) => {
-// })
+router.post('/auth', (req,res) => {
+    const memAccount = req.body.memAccount
+    const memPassword = req.body.memPassword
+    db.query(`SELECT memAccount, memPassword FROM members WHERE memAccount = '${memAccount}' AND memPassword = '${memPassword}'`)
+    .then((result) => {
+        console.log(result[0][0])
+        if(result[0][0] !== undefined) {
+            res.json({
+                success: true
+            })
+        } else {
+            res.json({
+                success: false
+            })
+        }
+    })
+})
 
 module.exports = router

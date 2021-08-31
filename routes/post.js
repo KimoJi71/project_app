@@ -2,25 +2,6 @@ var express = require('express')
 var db = require('../models/db_connect')
 var router = express.Router()
 
-//取得現在時間，格式為YYYY-MM-DD HH:MM:SS
-const onTime = () => {
-  const date = new Date()
-  const yy = date.getFullYear()
-  const mm = date.getMonth() +1
-  const dd = date.getDate()
-  const hh = date.getHours()
-  const mi = date.getMinutes()
-  const ss = date.getSeconds()
-
-  return [yy, '-' + 
-          (mm > 9 ? '' : '0') + mm, '-' + 
-          (dd > 9 ? '' : '0') + dd, ' ' +
-          (hh > 9 ? '' : '0') + hh, ':' +
-          (mi > 9 ? '' : '0') + mi, ':' +
-          (ss > 9 ? '' : '0') + ss
-        ].join('')
-}
-
 //取得文章
 router.get('/', (req, res) => {
   db.query("SELECT * FROM posts")
@@ -55,6 +36,9 @@ router.post('/create', (req, res) => {
 })
 
 //編輯文章
+// router.put('/update/:postNum', (req, res) => {
+
+// })
 
 //刪除文章
 
