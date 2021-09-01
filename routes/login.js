@@ -8,6 +8,7 @@ router.post('/register', (req, res) => {
     let insertValues = null
     let sqlCommand = ''
 
+    //判斷身分為業務員or一般用戶
     if(req.body.memIdentify === '1') {
         const salesmanData = {
             memAccount: req.body.memAccount,
@@ -59,6 +60,13 @@ router.post('/register', (req, res) => {
     //尋找是否有重複的帳號
     db.query(`SELECT memAccount FROM members WHERE memAccount = '${req.body.memAccount}'`) 
     .then ((result) => {
+        // if(err) {
+        //     console.log(err)
+        //     res.json({
+        //         status: '伺服器忙碌中，請稍後再試'
+        //     })
+        //     return
+        // }
         //帳號已被註冊
         if(result[0][0] !== undefined) {
             res.json({
@@ -81,6 +89,7 @@ router.post('/register', (req, res) => {
 router.post('/auth', (req,res) => {
     const memAccount = req.body.memAccount
     const memPassword = req.body.memPassword
+    //尋找是否存在資料庫內
     db.query(`SELECT memAccount, memPassword FROM members WHERE memAccount = '${memAccount}' AND memPassword = '${memPassword}'`)
     .then((result) => {
         console.log(result[0][0])
