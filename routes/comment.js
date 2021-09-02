@@ -39,7 +39,7 @@ router.post('/create/:postNum', (req, res) => {
 
         db.query(sqlCommand)
         .then((result) => {
-            console.log('1 record inserted')
+            console.log('1 record inserted into comments table')
             res.json({
                 message: '留言新增成功'
             })
@@ -47,9 +47,32 @@ router.post('/create/:postNum', (req, res) => {
     })
 })
 
-//編輯留言 /update/{commentNum}
+//編輯留言
+router.put('/update/:commentNum', (req, res) => {
+    const commentNum = req.params.commentNum
+    const commentContent = req.body.commentContent
+
+    db.query(`UPDATE comments SET commentContent = '${commentContent}' WHERE commentNum = '${commentNum}'`)
+    .then((result) => {
+        console.log('1 row updated in comments table')
+        res.json({
+            message: '留言編輯成功'
+        })
+    })
+})
 
 //刪除留言 /delete/{commentNum}
+router.delete('/delete/:commentNum', (req, res) => {
+    const commentNum = req.params.commentNum
+
+    db.query(`DELETE FROM comments WHERE commentNum = '${commentNum}'`)
+    .then((result) => {
+        console.log('1 row removed in comments table')
+        res.json({
+            message: '文章刪除成功'
+        })
+    })
+})
 
 //按讚、檢舉
 

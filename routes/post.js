@@ -38,7 +38,7 @@ router.post('/create', (req, res) => {
     db.query(sqlCommand)
     .then((result) => {
       // if(error) throw error
-      console.log('1 record inserted') 
+      console.log('1 record inserted into posts table') 
       res.json({
         message: '文章新增成功'
       })
@@ -53,14 +53,17 @@ router.put('/update/:postNum', (req, res) => {
 
   db.query(`UPDATE posts SET postContent = '${postContent}' WHERE postNum = '${postNum}'`)
   .then((result) => {
-    console.log('1 row updated')
+    console.log('1 row updated in posts table')
     res.json({
       message: '文章編輯成功'
     })
     // if(err) {
     //   console.log(err)
     // } else {
-    //   console.log('1 row updated')
+    //   console.log('1 row updated in posts table')
+    //   res.json({
+    //      message: '文章編輯成功'
+    //   })
     // }
   })
 })
@@ -71,7 +74,7 @@ router.delete('/delete/:postNum', (req, res) => {
 
   db.query(`DELETE FROM posts WHERE postNum = '${postNum}'`)
   .then((result) => {
-    console.log('1 row removed')
+    console.log('1 row removed in posts table')
     res.json({
       message: '文章刪除成功'
     })
