@@ -4,8 +4,9 @@ var router = express.Router()
 
 //取得留言
 router.get('/:postNum', (req, res) => {
-    const postNum = req.params.postNum
-    db.query(`SELECT * FROM comments WHERE postNum = '${postNum}'`)
+    const {postNum} = req.params
+    db.query(`SELECT members.memName, members.memPhoto, comments.* FROM members INNER JOIN comments 
+              ON (members.memNum = comments.memNum AND comments.postNum = '${postNum}') ORDER BY commentCreateAt DESC`)
       .then((result, fields) => {
         res.json(result)
     })
@@ -49,7 +50,7 @@ router.post('/create/:postNum', (req, res) => {
 
 //編輯留言
 router.put('/update/:commentNum', (req, res) => {
-    const commentNum = req.params.commentNum
+    const {commentNum} = req.params
     const commentContent = req.body.commentContent
 
     db.query(`UPDATE comments SET commentContent = '${commentContent}' WHERE commentNum = '${commentNum}'`)
@@ -63,7 +64,7 @@ router.put('/update/:commentNum', (req, res) => {
 
 //刪除留言 /delete/{commentNum}
 router.delete('/delete/:commentNum', (req, res) => {
-    const commentNum = req.params.commentNum
+    const {commentNum} = req.params
 
     db.query(`DELETE FROM comments WHERE commentNum = '${commentNum}'`)
     .then((result) => {

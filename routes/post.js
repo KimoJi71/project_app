@@ -4,8 +4,8 @@ var router = express.Router()
 
 //取得文章
 router.get('/', (req, res) => {
-  db.query('SELECT * FROM posts')
-    .then((result, fields) => {
+  db.query('SELECT members.memName, members.memPhoto, posts.* FROM `members` INNER JOIN `posts` ON members.memNum = posts.memNum')
+    .then((result) => {
       res.json(result)
     })
 })
@@ -48,7 +48,7 @@ router.post('/create', (req, res) => {
 
 //編輯文章
 router.put('/update/:postNum', (req, res) => {
-  const postNum = req.params.postNum
+  const {postNum} = req.params
   const postContent = req.body.postContent
 
   db.query(`UPDATE posts SET postContent = '${postContent}' WHERE postNum = '${postNum}'`)
@@ -70,7 +70,7 @@ router.put('/update/:postNum', (req, res) => {
 
 //刪除文章
 router.delete('/delete/:postNum', (req, res) => {
-  const postNum = req.params.postNum
+  const {postNum} = req.params
 
   db.query(`DELETE FROM posts WHERE postNum = '${postNum}'`)
   .then((result) => {
