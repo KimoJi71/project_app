@@ -120,6 +120,6 @@ router.post('/report/:commentNum', (req, res) => {
         message: '成功檢舉留言'
       })
     })
-  })
+})
 
 module.exports = router

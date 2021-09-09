@@ -417,6 +417,45 @@ paths:
         "500":
           description: Server 端錯誤
   /posts/liked/{postNum}/{memNum}:
+    delete:
+      tags:
+      - post
+      summary: 取消 文章按讚
+      operationId: removePostLike
+      parameters:
+      - name: postNum
+        in: path
+        description: 文章序號
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: number
+          example: 2
+      - name: memNum
+        in: path
+        description: 用戶序號
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: number
+          example: 2
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              example:
+                message: 成功取消貼文按讚
+        "404":
+          description: 找不到api
+          content:
+            application/json:
+              example:
+                message: Not found
+        "500":
+          description: Server 端錯誤
     get:
       tags:
       - post
@@ -454,45 +493,6 @@ paths:
             application/json:
               example:
                 message: 未按讚
-        "404":
-          description: 找不到api
-          content:
-            application/json:
-              example:
-                message: Not found
-        "500":
-          description: Server 端錯誤
-    delete:
-      tags:
-      - post
-      summary: 取消 文章按讚
-      operationId: removePostLike
-      parameters:
-      - name: postNum
-        in: path
-        description: 文章序號
-        required: true
-        style: simple
-        explode: false
-        schema:
-          type: number
-          example: 2
-      - name: memNum
-        in: path
-        description: 用戶序號
-        required: true
-        style: simple
-        explode: false
-        schema:
-          type: number
-          example: 2
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              example:
-                message: 成功取消貼文按讚
         "404":
           description: 找不到api
           content:
@@ -733,6 +733,45 @@ paths:
         "500":
           description: Server 端錯誤
   /comments/liked/{commentNum}/{memNum}:
+    delete:
+      tags:
+      - comment
+      summary: 取消 留言按讚
+      operationId: removeCommentLike
+      parameters:
+      - name: commentNum
+        in: path
+        description: 留言序號
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: number
+          example: 2
+      - name: memNum
+        in: path
+        description: 用戶序號
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: number
+          example: 2
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              example:
+                message: 成功取消貼文按讚
+        "404":
+          description: 找不到api
+          content:
+            application/json:
+              example:
+                message: Not found
+        "500":
+          description: Server 端錯誤
     get:
       tags:
       - comment
@@ -778,11 +817,13 @@ paths:
                 message: Not found
         "500":
           description: Server 端錯誤
-    delete:
+  /comments/report/{commentNum}:
+    post:
       tags:
       - comment
-      summary: 取消 留言按讚
-      operationId: removeCommentLike
+      summary: 檢舉留言
+      description: RequestBody各項參數說明 <ul> <li>memNum：檢舉者序號</li> </ul>
+      operationId: commentReport
       parameters:
       - name: commentNum
         in: path
@@ -792,23 +833,25 @@ paths:
         explode: false
         schema:
           type: number
-          example: 2
-      - name: memNum
-        in: path
-        description: 用戶序號
+          example: 3
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+            example:
+              memNum: 1
+              reportReason: 檢舉測試
+          text/plain:
+            schema:
+              type: string
         required: true
-        style: simple
-        explode: false
-        schema:
-          type: number
-          example: 2
       responses:
         "200":
           description: OK
           content:
             application/json:
               example:
-                message: 成功取消貼文按讚
+                message: 成功檢舉留言
         "404":
           description: 找不到api
           content:
@@ -1089,6 +1132,45 @@ paths:
         "500":
           description: Server 端錯誤
   /members/liked/{salesmanNum}/{memNum}:
+    delete:
+      tags:
+      - member
+      summary: 取消 業務員按讚
+      operationId: removeSalesmantLike
+      parameters:
+      - name: salesmanNum
+        in: path
+        description: 被按讚(業務員)序號
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: number
+          example: 3
+      - name: memNum
+        in: path
+        description: 按讚者序號
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: number
+          example: 1
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              example:
+                message: 成功取消業務員按讚
+        "404":
+          description: 找不到api
+          content:
+            application/json:
+              example:
+                message: Not found
+        "500":
+          description: Server 端錯誤
     get:
       tags:
       - member
@@ -1134,37 +1216,41 @@ paths:
                 message: Not found
         "500":
           description: Server 端錯誤
-    delete:
+  /members/report/{salesmanNum}:
+    post:
       tags:
       - member
-      summary: 取消 業務員按讚
-      operationId: removeSalesmantLike
+      summary: 檢舉業務員
+      description: RequestBody各項參數說明 <ul> <li>memNum：檢舉者序號</li> </ul>
+      operationId: salesmanReport
       parameters:
       - name: salesmanNum
         in: path
-        description: 被按讚(業務員)序號
+        description: 被檢舉者(業務員)序號
         required: true
         style: simple
         explode: false
         schema:
           type: number
           example: 3
-      - name: memNum
-        in: path
-        description: 按讚者序號
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+            example:
+              memNum: 1
+              reportReason: 檢舉測試
+          text/plain:
+            schema:
+              type: string
         required: true
-        style: simple
-        explode: false
-        schema:
-          type: number
-          example: 1
       responses:
         "200":
           description: OK
           content:
             application/json:
               example:
-                message: 成功取消業務員按讚
+                message: 成功檢舉業務員
         "404":
           description: 找不到api
           content:

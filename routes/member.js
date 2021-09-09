@@ -133,6 +133,19 @@ router.get('/liked/:salesmanNum/:memNum', (req, res) => {
     })
 })
 
-//檢舉、收藏數
+//檢舉文章
+router.post('/report/:salesmanNum', (req, res) => {
+    const {salesmanNum} = req.params
+    const memNum = req.body.memNum
+    const reportReason = req.body.reportReason
+  
+    db.query(`INSERT INTO salesmanReport (salesmanNum, memNum, reportReason) VALUES ('${salesmanNum}', '${memNum}', '${reportReason}')`)
+    .then((result) => {
+      res.json({
+        message: '成功檢舉業務員'
+      })
+    })
+})
+//收藏數
 
 module.exports = router
