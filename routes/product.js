@@ -4,6 +4,7 @@ var router = express.Router()
 
 //取得商品
 router.get('/', (req, res) => {
+  //抓取query的資料
   const whereString = Object.keys(req.query).map((key, idx) => {
      console.log(key ,idx)
      return `${key} LIKE '%${Object.values(req.query)[idx]}%'`

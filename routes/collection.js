@@ -3,6 +3,10 @@ var db = require('../models/db_connect')
 var router = express.Router()
 
 //收藏文章
+// router.post('/posts/:postNum', (req, res) => {
+//     const {postNum} = req.params
+    
+// })
 
 //取消收藏文章
 

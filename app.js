@@ -15,6 +15,7 @@ var commentsRouter = require('./routes/comment')
 var productsRouter = require('./routes/product')
 var memberRouter = require('./routes/member')
 var loginRouter = require('./routes/login')
+var collectionRouter = require('./routes/collection')
 
 
 var app = express()
@@ -40,6 +41,7 @@ app.use('/comments', commentsRouter)
 app.use('/products', productsRouter)
 app.use('/members', memberRouter)
 app.use('/', loginRouter)
+app.use('/collections', collectionRouter)
 
 console.log(`Server is running`)
 
@@ -54,9 +56,7 @@ app.use((req, res, next) => {
 app.use((error, req, res, next) => {
   res.status(error.status || 500)
   res.json({
-    error: {
-      message: error.message
-    } 
+    message: error.message
   })
 })
 
