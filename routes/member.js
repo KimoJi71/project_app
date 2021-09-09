@@ -80,6 +80,59 @@ router.put('/update/:memNum', (req, res) => {
     })
 })
 
-//業務員按讚、檢舉、收藏數
+//取得業務員按讚數
+router.get('/liked/:salesmanNum', (req, res) => {
+    const {salesmanNum} = req.params
+  
+    db.query(`SELECT COUNT(*) AS Number FROM salesmanLike WHERE salesmanNum = ${salesmanNum}`)
+    .then((result) => {
+      res.json(result[0])
+    })
+})
+
+//業務員按讚
+router.post('/liked/:salesmanNum', (req, res) => {
+    const {salesmanNum} = req.params
+    const memNum = req.body.memNum
+
+    db.query(`INSERT INTO salesmanLike (memNum, salesmanNum) VALUES ('${memNum}', '${salesmanNum}')`)
+    .then((result) => {
+        res.json({
+            message: '成功為業務員按讚'
+        })
+    })
+})
+
+//取消業務員按讚
+router.delete('/liked/:salesmanNum/:memNum', (req, res) => {
+    const {salesmanNum, memNum} = req.params
+  
+    db.query(`DELETE FROM salesmanLike WHERE salesmanNum = '${salesmanNum}' AND memNum = '${memNum}'`)
+    .then((result) => {
+      res.json({
+        message: '成功取消業務員按讚'
+      })
+    })
+})
+
+//檢查用戶是否按讚
+router.get('/liked/:salesmanNum/:memNum', (req, res) => {
+    const {salesmanNum, memNum} = req.params
+  
+    db.query(`SELECT * FROM salesmanLike WHERE salesmanNum = ${salesmanNum} AND memNum = ${memNum}`)
+    .then((result) => {
+      if(result[0][0] !== undefined) {
+        res.json({
+            message: '已按讚'
+        })
+      } else {
+        res.status(400).json({
+          message: '未按讚'
+        })
+      }
+    })
+})
+
+//檢舉、收藏數
 
 module.exports = router
