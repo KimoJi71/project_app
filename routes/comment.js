@@ -55,6 +55,59 @@ router.delete('/delete/:commentNum', (req, res) => {
     })
 })
 
-//按讚、檢舉
+//取得留言按讚數
+router.get('/liked/:commentNum', (req, res) => {
+    const {commentNum} = req.params
+  
+    db.query(`SELECT COUNT(*) AS Number FROM commentLike WHERE commentNum = ${commentNum}`)
+    .then((result) => {
+      res.json(result[0])
+    })
+})
+
+//留言按讚
+router.post('/liked/:commentNum', (req, res) => {
+    const {commentNum} = req.params
+    const memNum = req.body.memNum
+
+    db.query(`INSERT INTO commentLike (commentNum, memNum) VALUES ('${commentNum}', '${memNum}')`)
+    .then((result) => {
+        res.json({
+            message: '成功為留言按讚'
+        })
+    })
+})
+
+//取消留言按讚
+router.delete('/liked/:commentNum/:memNum', (req, res) => {
+    const {commentNum, memNum} = req.params
+  
+    db.query(`DELETE FROM commentLike WHERE commentNum = '${commentNum}' AND memNum = '${memNum}'`)
+    .then((result) => {
+      res.json({
+        message: '成功取消留言按讚'
+      })
+    })
+})
+
+//檢查用戶是否按讚
+router.get('/liked/:commentNum/:memNum', (req, res) => {
+    const {commentNum, memNum} = req.params
+  
+    db.query(`SELECT * FROM commentLike WHERE commentNum = ${commentNum} AND memNum = ${memNum}`)
+    .then((result) => {
+      if(result[0][0] !== undefined) {
+        res.json({
+            message: '已按讚'
+        })
+      } else {
+        res.status(400).json({
+          message: '未按讚'
+        })
+      }
+    })
+})
+
+//檢舉
 
 module.exports = router
