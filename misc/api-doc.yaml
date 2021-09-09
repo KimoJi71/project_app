@@ -1,0 +1,1176 @@
+---
+openapi: 3.0.0
+info:
+  title: 專題 api
+  description: |
+    This is for project app api
+  version: 1.0.0
+servers:
+- url: http://localhost:3000
+tags:
+- name: login
+- name: searchBar
+- name: post
+- name: comment
+- name: product
+- name: member
+- name: collection
+paths:
+  /register:
+    post:
+      tags:
+      - login
+      summary: 註冊 會員資料
+      description: RequestBody各項參數說明 <ul> <li>memAccount：帳號</li> <li>memPassword：密碼</li> <li>memIdentify：身分(0為一般用戶，1為業務員)</li> <li>memPhoto：頭像</li> <li>memName：暱稱</li> <li>memIntro：簡介</li> <li>memGender：生理性別(0為男性，1為女性)</li> <li>memBirth：生日(格式：YYYY-MM-DD)</li> </ul> 身分為業務員須加填： <ul> <li>memCompany：所屬公司</li> <li>companyContact：公司聯絡方式</li> <li>memService：可提供服務</li> <li>memPhone：連絡資料-電話</li> <li>memLineID：連絡資料-LineID</li> </ul>
+      operationId: postRegister
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/'
+            example:
+              salesmanData:
+                memAccount: kimoQQ
+                memPassword: test123
+                memIdentify: 1
+                memName: KimoJi
+                memIntro: 我只是個小小業務專員
+                memGender: 1
+                memBirth: 2000-07-01
+                memCompany: 遠見保經
+                companyContact: "0912345678"
+                memService: 壽險、產險
+                memPhone: "0987654321"
+                memLineID: kimojiiii_test
+              memData:
+                memAccount: kimoQQ
+                memPassword: test123
+                memIdentify: 1
+                memName: KimoJi
+                memIntro: 我只是個小小業務專員
+                memGender: 1
+                memBirth: 2000-07-01
+          text/plain:
+            schema:
+              type: string
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              example:
+                status: 註冊成功
+        "400":
+          description: 帳號已被註冊
+          content:
+            application/json:
+              example:
+                status: 註冊失敗
+        "404":
+          description: 找不到api
+          content:
+            application/json:
+              example:
+                message: Not found
+        "500":
+          description: Server 端錯誤
+  /auth:
+    post:
+      tags:
+      - login
+      summary: 會員登入 驗證
+      description: RequestBody各項參數說明 <ul> <li>memAccount：帳號</li> <li>memPassword：密碼</li> </ul>
+      operationId: postAuth
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+            example:
+              memAccount: fannyisfish
+              memPassword: t107A50034
+          text/plain:
+            schema:
+              type: string
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              example:
+                success: true
+        "400":
+          description: 帳號密碼有誤
+          content:
+            application/json:
+              example:
+                success: false
+        "404":
+          description: 找不到api
+          content:
+            application/json:
+              example:
+                message: Not found
+        "500":
+          description: Server 端錯誤
+  /posts:
+    get:
+      tags:
+      - post
+      summary: 取得 文章
+      description: 取得文章、發文者資訊
+      operationId: getPosts
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              example:
+              - memName: ABC
+                memPhoto: ""
+                postNum: 1
+                memNum: 3
+                postCreateAt: 2021-09-02T02:27:17.000Z
+                postUpdateAt: 2021-09-02T02:27:17.000Z
+                postContent: 真是好系統！
+              - memName: KimoJi
+                postNum: 2
+                memNum: 1
+                postCreateAt: 2021-09-02T02:28:46.000Z
+                postUpdateAt: 2021-09-02T02:28:46.000Z
+                postContent: 我最喜歡全球人壽的PHB！
+              - memName: Fanny
+                memPhoto: ""
+                postNum: 3
+                memNum: 2
+                postCreateAt: 2021-09-02T02:29:54.000Z
+                postUpdateAt: 2021-09-02T02:29:54.000Z
+                postContent: |-
+                  測試字數長度
+                  測試字數長度
+                  測試字數長度
+                  測試字數長度
+                  測試字數長度
+                  測試字數長度
+                  測試字數長度
+                  測試字數長度
+                  測試字數長度
+                  測試字數長度
+                  測試字數長度
+                  測試字數長度
+                  測試字數長度
+                  測試字數長度
+                  測試字數長度
+                  測試字數長度
+                  測試字數長度
+                  測試字數長度
+                  測試字數長度
+                  測試字數長度
+                  測試字數長度
+                  測試字數長度
+                  測試字數長度
+                  測試字數長度
+                  測試字數長度
+                  測試字數長度
+                  測試字數長度
+                  測試字數長度
+                  測試字數長度
+                  測試字數長度
+                  測試字數長度
+                  測試字數長度
+                  測試字數長度
+                  測試字數長度
+                  測試字數長度
+        "404":
+          description: 找不到api
+          content:
+            application/json:
+              example:
+                message: Not found
+        "500":
+          description: Server 端錯誤
+  /posts/create:
+    post:
+      tags:
+      - post
+      summary: 新增 文章
+      description: RequestBody各項參數說明 <ul> <li>memNum：用戶序號</li> <li>postContent：文章內容</li> </ul>
+      operationId: createPost
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+            example:
+              postData:
+                memNum: 1
+                postContent: 這麼好用的網站，還不用爆！
+          text/plain:
+            schema:
+              type: string
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              example:
+                message: 文章新增成功
+        "404":
+          description: 找不到api
+          content:
+            application/json:
+              example:
+                message: Not found
+        "500":
+          description: Server 端錯誤
+  /posts/update/{postNum}:
+    put:
+      tags:
+      - post
+      summary: 編輯 文章
+      description: RequestBody各項參數說明 <ul> <li>postContent：文章內容</li> </ul>
+      operationId: updatePost
+      parameters:
+      - name: postNum
+        in: path
+        description: 文章序號
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: number
+          example: 1
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+            example:
+              postContent: 寫API文件寫到快瘋掉
+          text/plain:
+            schema:
+              type: string
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              example:
+                message: 文章編輯成功
+        "404":
+          description: 找不到api
+          content:
+            application/json:
+              example:
+                message: Not found
+        "500":
+          description: Server 端錯誤
+  /posts/delete/{postNum}:
+    delete:
+      tags:
+      - post
+      summary: 刪除 文章
+      operationId: deletePost
+      parameters:
+      - name: postNum
+        in: path
+        description: 文章序號
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: number
+          example: 1
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              example:
+                message: 文章刪除成功
+        "404":
+          description: 找不到api
+          content:
+            application/json:
+              example:
+                message: Not found
+        "500":
+          description: Server 端錯誤
+  /comments/{postNum}:
+    get:
+      tags:
+      - comment
+      summary: 取得 留言
+      description: 取得留言、留言者資訊
+      operationId: getComments
+      parameters:
+      - name: postNum
+        in: path
+        description: 文章序號
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: number
+          example: 2
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              example:
+              - memName: Fanny
+                memPhoto: ""
+                commentNum: 4
+                postNum: 2
+                memNum: 2
+                commentCreateAt: 2021-09-06T07:14:53.000Z
+                commentUpdateAt: 2021-09-06T07:14:53.000Z
+                commentContent: 什麼時候可以完成TT
+              - memName: ABC
+                memPhoto: ""
+                commentNum: 3
+                postNum: 2
+                memNum: 3
+                commentCreateAt: 2021-09-06T07:10:40.000Z
+                commentUpdateAt: 2021-09-06T07:10:40.000Z
+                commentContent: 什麼時候可以完成TT
+        "404":
+          description: 找不到api
+          content:
+            application/json:
+              example:
+                message: Not found
+        "500":
+          description: Server 端錯誤
+  /posts/liked/{postNum}:
+    get:
+      tags:
+      - post
+      summary: 取得 文章按讚數
+      operationId: getPostLikes
+      parameters:
+      - name: postNum
+        in: path
+        description: 文章序號
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: number
+          example: 2
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              example:
+                Number: 1
+        "404":
+          description: 找不到api
+          content:
+            application/json:
+              example:
+                message: Not found
+        "500":
+          description: Server 端錯誤
+    post:
+      tags:
+      - post
+      summary: 文章按讚
+      description: RequestBody各項參數說明 <ul> <li>memNum：按讚者序號</li> </ul>
+      operationId: postLike
+      parameters:
+      - name: postNum
+        in: path
+        description: 文章序號
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: number
+          example: 1
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+            example:
+              memNum: 1
+          text/plain:
+            schema:
+              type: string
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              example:
+                message: 成功為貼文按讚
+        "404":
+          description: 找不到api
+          content:
+            application/json:
+              example:
+                message: Not found
+        "500":
+          description: Server 端錯誤
+  /posts/liked/{postNum}/{memNum}:
+    get:
+      tags:
+      - post
+      summary: 檢查用戶是否按讚
+      operationId: postLikeVerify
+      parameters:
+      - name: postNum
+        in: path
+        description: 文章序號
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: number
+          example: 1
+      - name: memNum
+        in: path
+        description: 用戶序號
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: number
+          example: 1
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              example:
+                message: 已按讚
+        "400":
+          description: 找不到資訊
+          content:
+            application/json:
+              example:
+                message: 未按讚
+        "404":
+          description: 找不到api
+          content:
+            application/json:
+              example:
+                message: Not found
+        "500":
+          description: Server 端錯誤
+    delete:
+      tags:
+      - post
+      summary: 取消 文章按讚
+      operationId: removePostLike
+      parameters:
+      - name: postNum
+        in: path
+        description: 文章序號
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: number
+          example: 2
+      - name: memNum
+        in: path
+        description: 用戶序號
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: number
+          example: 2
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              example:
+                message: 成功取消貼文按讚
+        "404":
+          description: 找不到api
+          content:
+            application/json:
+              example:
+                message: Not found
+        "500":
+          description: Server 端錯誤
+  /posts/report/{postNum}:
+    post:
+      tags:
+      - post
+      summary: 檢舉文章
+      description: RequestBody各項參數說明 <ul> <li>memNum：檢舉者序號</li> </ul>
+      operationId: postReport
+      parameters:
+      - name: postNum
+        in: path
+        description: 文章序號
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: number
+          example: 3
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+            example:
+              memNum: 1
+              reportReason: 檢舉測試
+          text/plain:
+            schema:
+              type: string
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              example:
+                message: 成功檢舉貼文
+        "404":
+          description: 找不到api
+          content:
+            application/json:
+              example:
+                message: Not found
+        "500":
+          description: Server 端錯誤
+  /comments/create/{postNum}:
+    post:
+      tags:
+      - comment
+      summary: 新增 留言
+      description: RequestBody各項參數說明 <ul> <li>memNum：用戶序號</li> <li>commentContent：留言內容</li> </ul>
+      operationId: createComment
+      parameters:
+      - name: postNum
+        in: path
+        description: 文章序號
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: number
+          example: 1
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+            example:
+              memNum: 2
+              postContent: 我也這麼覺得！
+          text/plain:
+            schema:
+              type: string
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              example:
+                message: 留言新增成功
+        "404":
+          description: 找不到api
+          content:
+            application/json:
+              example:
+                message: Not found
+        "500":
+          description: Server 端錯誤
+  /comments/update/{commentNum}:
+    put:
+      tags:
+      - comment
+      summary: 編輯 留言
+      description: RequestBody各項參數說明 <ul> <li>commentContent：留言內容</li> </ul>
+      operationId: updateComment
+      parameters:
+      - name: commentNum
+        in: path
+        description: 留言序號
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: number
+          example: 2
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+            example:
+              commentContent: 這個商品有毒嗎？
+          text/plain:
+            schema:
+              type: string
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              example:
+                message: 留言編輯成功
+        "404":
+          description: 找不到api
+          content:
+            application/json:
+              example:
+                message: Not found
+        "500":
+          description: Server 端錯誤
+  /comments/delete/{commentNum}:
+    delete:
+      tags:
+      - comment
+      summary: 刪除 留言
+      operationId: deleteComment
+      parameters:
+      - name: commentNum
+        in: path
+        description: 留言序號
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: number
+          example: 2
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              example:
+                message: 留言刪除成功
+        "404":
+          description: 找不到api
+          content:
+            application/json:
+              example:
+                message: Not found
+        "500":
+          description: Server 端錯誤
+  /comments/liked/{commentNum}:
+    get:
+      tags:
+      - comment
+      summary: 取得 留言按讚數
+      operationId: getCommentLikes
+      parameters:
+      - name: commentNum
+        in: path
+        description: 留言序號
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: number
+          example: 2
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              example:
+                Number: 2
+        "404":
+          description: 找不到api
+          content:
+            application/json:
+              example:
+                message: Not found
+        "500":
+          description: Server 端錯誤
+    post:
+      tags:
+      - comment
+      summary: 留言按讚
+      description: RequestBody各項參數說明 <ul> <li>memNum：按讚者序號</li> </ul>
+      operationId: commentLike
+      parameters:
+      - name: commentNum
+        in: path
+        description: 留言序號
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: number
+          example: 2
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+            example:
+              memNum: 1
+          text/plain:
+            schema:
+              type: string
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              example:
+                message: 成功為留言按讚
+        "404":
+          description: 找不到api
+          content:
+            application/json:
+              example:
+                message: Not found
+        "500":
+          description: Server 端錯誤
+  /comments/liked/{commentNum}/{memNum}:
+    get:
+      tags:
+      - comment
+      summary: 檢查用戶是否按讚
+      operationId: commentLikeVerify
+      parameters:
+      - name: commentNum
+        in: path
+        description: 留言序號
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: number
+          example: 2
+      - name: memNum
+        in: path
+        description: 用戶序號
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: number
+          example: 2
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              example:
+                message: 已按讚
+        "400":
+          description: 找不到資訊
+          content:
+            application/json:
+              example:
+                message: 未按讚
+        "404":
+          description: 找不到api
+          content:
+            application/json:
+              example:
+                message: Not found
+        "500":
+          description: Server 端錯誤
+    delete:
+      tags:
+      - comment
+      summary: 取消 留言按讚
+      operationId: removeCommentLike
+      parameters:
+      - name: commentNum
+        in: path
+        description: 留言序號
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: number
+          example: 2
+      - name: memNum
+        in: path
+        description: 用戶序號
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: number
+          example: 2
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              example:
+                message: 成功取消貼文按讚
+        "404":
+          description: 找不到api
+          content:
+            application/json:
+              example:
+                message: Not found
+        "500":
+          description: Server 端錯誤
+  /products:
+    get:
+      tags:
+      - product
+      summary: 取得 商品
+      description: 取得全部商品資訊 或 取得篩選過後的商品資訊(模糊比對)
+      operationId: getProducts
+      parameters:
+      - name: proCompany
+        in: query
+        description: 商品發行公司
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: proBigItem
+        in: query
+        description: 商品分類大項
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: proSmallItem
+        in: query
+        description: 商品分類小項
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: proKind
+        in: query
+        description: 主約or附約
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: proPeriod
+        in: query
+        description: 終身or定期
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: proName
+        in: query
+        description: 商品名稱(中英文皆可)
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: NTDD
+      - name: proRemark
+        in: query
+        description: 商品備註
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: proFeature
+        in: query
+        description: 商品特色
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: proContent
+        in: query
+        description: 商品保障項目
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: proStatus
+        in: query
+        description: 商品銷售狀態
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              example:
+              - proNum: 1
+                proCompany: 南山人壽
+                proBigItem: '[''壽險保障商品'', ''醫療保障商品'']'
+                proSmallItem: '[''定期壽險-台幣'', ''重大疾病與重大傷病'', ''癌症醫療'']'
+                proKind: 主約
+                proPeriod: 定期
+                proName: 南山人壽新活力康祥定期健康保險(NTDD)
+                proRemark: ""
+                proFeature: '[''投保年齡：15足歲~40歲'', ''7項重大疾病，輕/重度均有保障'', ''加強人生黃金期的階段性保障'']'
+                proContent: '[''身故給付'', ''完全失能給付'', ''重大疾病'', ''豁免保費'']'
+                proDM: https://www.nanshanlife.com.tw/NanshanWeb/file/DOCUMENT/7341
+                proTerms: https://www.nanshanlife.com.tw/NanshanWeb/file/DOCUMENT/7361
+                proStatus: 現售
+        "404":
+          description: 找不到api
+          content:
+            application/json:
+              example:
+                message: Not found
+        "500":
+          description: Server 端錯誤
+  /members/{memNum}:
+    get:
+      tags:
+      - member
+      summary: 取得 個人資料
+      operationId: getMemberInfo
+      parameters:
+      - name: memNum
+        in: path
+        description: 用戶序號
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: number
+          example: 2
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              example:
+                data:
+                  memNum: 2
+                  memAccount: fannyisfish
+                  memPassword: t107A50034
+                  memIdentify: 0
+                  memPhoto: ""
+                  memName: Fanny
+                  memIntro: Fanny test
+                  memGender: 1
+                  memBirth: 2000-05-05T16:00:00.000Z
+        "404":
+          description: 找不到api
+          content:
+            application/json:
+              example:
+                message: Not found
+        "500":
+          description: Server 端錯誤
+  /members/update/{memNum}:
+    put:
+      tags:
+      - member
+      summary: 編輯 個人資料
+      description: RequestBody各項參數說明 <ul> <li>memPassword：密碼</li> <li>memPhoto：頭像</li> <li>memName：暱稱</li> <li>memIntro：簡介</li> <li>memGender：生理性別(0為男性，1為女性)</li> <li>memBirth：生日(格式：YYYY-MM-DD)</li> </ul> 身分為業務員才可編輯的欄位： <ul> <li>memCompany：所屬公司</li> <li>companyContact：公司聯絡方式</li> <li>memService：可提供服務</li> <li>memPhone：連絡資料-電話</li> <li>memLineID：連絡資料-LineID</li> </ul>
+      operationId: updateMemberInfo
+      parameters:
+      - name: memNum
+        in: path
+        description: 用戶序號
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: number
+          example: 3
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+            example:
+              memPassword: asdfgh888
+              memName: 野原新之助
+          text/plain:
+            schema:
+              type: string
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              example:
+                message: 個人資料編輯成功
+        "404":
+          description: 找不到api
+          content:
+            application/json:
+              example:
+                message: Not found
+        "500":
+          description: Server 端錯誤
+  /members/liked/{salesmanNum}:
+    get:
+      tags:
+      - member
+      summary: 取得 業務員按讚數
+      operationId: getSalesmanLikes
+      parameters:
+      - name: salesmanNum
+        in: path
+        description: 被按讚者(業務員)序號
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: number
+          example: 3
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              example:
+                Number: 1
+        "404":
+          description: 找不到api
+          content:
+            application/json:
+              example:
+                message: Not found
+        "500":
+          description: Server 端錯誤
+    post:
+      tags:
+      - member
+      summary: 業務員按讚
+      description: RequestBody各項參數說明 <ul> <li>memNum：按讚者序號</li> </ul>
+      operationId: salesmanLike
+      parameters:
+      - name: salesmanNum
+        in: path
+        description: 被按讚(業務員)序號
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: number
+          example: 3
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+            example:
+              memNum: 1
+          text/plain:
+            schema:
+              type: string
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              example:
+                message: 成功為業務員按讚
+        "404":
+          description: 找不到api
+          content:
+            application/json:
+              example:
+                message: Not found
+        "500":
+          description: Server 端錯誤
+  /members/liked/{salesmanNum}/{memNum}:
+    get:
+      tags:
+      - member
+      summary: 檢查用戶是否按讚
+      operationId: salesmanLikeVerify
+      parameters:
+      - name: salesmanNum
+        in: path
+        description: 被按讚(業務員)序號
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: number
+          example: 3
+      - name: memNum
+        in: path
+        description: 按讚者序號
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: number
+          example: 2
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              example:
+                message: 已按讚
+        "400":
+          description: 找不到資訊
+          content:
+            application/json:
+              example:
+                message: 未按讚
+        "404":
+          description: 找不到api
+          content:
+            application/json:
+              example:
+                message: Not found
+        "500":
+          description: Server 端錯誤
+    delete:
+      tags:
+      - member
+      summary: 取消 業務員按讚
+      operationId: removeSalesmantLike
+      parameters:
+      - name: salesmanNum
+        in: path
+        description: 被按讚(業務員)序號
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: number
+          example: 3
+      - name: memNum
+        in: path
+        description: 按讚者序號
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: number
+          example: 1
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              example:
+                message: 成功取消業務員按讚
+        "404":
+          description: 找不到api
+          content:
+            application/json:
+              example:
+                message: Not found
+        "500":
+          description: Server 端錯誤
+components: {}

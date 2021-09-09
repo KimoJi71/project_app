@@ -1,24 +1,30 @@
-var express = require('express')
-var path = require('path')
-var cookieParser = require('cookie-parser')
-var bodyParser = require("body-parser")
-var logger = require('morgan')
-// var cors = require('cors')
-// var fs = require('fs')
-// var crypto = require('crypto')
-// var _ = require('lodash')
-// var multer = require('multer')
+const express = require('express')
+const path = require('path')
+const cookieParser = require('cookie-parser')
+const bodyParser = require("body-parser")
+const logger = require('morgan')
+// const cors = require('cors')
+// const fs = require('fs')
+// const crypto = require('crypto')
+// const _ = require('lodash')
+// const multer = require('multer')
 
-var searchBarRouter = require('./routes/searchBar')
-var postsRouter = require('./routes/post')
-var commentsRouter = require('./routes/comment')
-var productsRouter = require('./routes/product')
-var memberRouter = require('./routes/member')
-var loginRouter = require('./routes/login')
-var collectionRouter = require('./routes/collection')
+/** Import Swagger Doc Modules Initial */
+const swaggerUi = require('swagger-ui-express');
+const YAML = require('yamljs');
+
+const searchBarRouter = require('./routes/searchBar')
+const postsRouter = require('./routes/post')
+const commentsRouter = require('./routes/comment')
+const productsRouter = require('./routes/product')
+const memberRouter = require('./routes/member')
+const loginRouter = require('./routes/login')
+const collectionRouter = require('./routes/collection')
+/* Setup Swagger Documentation File Resource */
+const swaggerDocument = YAML.load('./misc/api-doc.yaml');
 
 
-var app = express()
+const app = express()
 
 // view engine setup
 app.engine('html', require('ejs').renderFile)
@@ -33,6 +39,8 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false}))
 // app.use(cors())
+// Setup swagger doc router
+app.use('/v1/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // app.use('/index', indexRouter)
 app.use('/search', searchBarRouter)
