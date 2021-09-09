@@ -108,6 +108,18 @@ router.get('/liked/:commentNum/:memNum', (req, res) => {
     })
 })
 
-//檢舉
+//檢舉文章
+router.post('/report/:commentNum', (req, res) => {
+    const {commentNum} = req.params
+    const memNum = req.body.memNum
+    const reportReason = req.body.reportReason
+  
+    db.query(`INSERT INTO commentReport (commentNum, memNum, reportReason) VALUES ('${commentNum}', '${memNum}', '${reportReason}')`)
+    .then((result) => {
+      res.json({
+        message: '成功檢舉留言'
+      })
+    })
+  })
 
 module.exports = router
