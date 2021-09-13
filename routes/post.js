@@ -4,7 +4,10 @@ var router = express.Router()
 
 //取得文章
 router.get('/', (req, res) => {
-  db.query('SELECT members.memName, members.memPhoto, posts.* FROM `members` INNER JOIN `posts` ON members.memNum = posts.memNum')
+  db.query(`SELECT members.memName, members.memPhoto, posts.* 
+  FROM members 
+  INNER JOIN posts ON members.memNum = posts.memNum
+  ORDER BY posts.postCreateAt DESC`)
     .then((result) => {
       res.json(result[0])
     })
