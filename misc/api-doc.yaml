@@ -434,7 +434,7 @@ paths:
           example: 2
       - name: memNum
         in: path
-        description: 用戶序號
+        description: 按讚者序號
         required: true
         style: simple
         explode: false
@@ -473,7 +473,7 @@ paths:
           example: 1
       - name: memNum
         in: path
-        description: 用戶序號
+        description: 按讚者序號
         required: true
         style: simple
         explode: false
@@ -750,7 +750,7 @@ paths:
           example: 2
       - name: memNum
         in: path
-        description: 用戶序號
+        description: 按讚者序號
         required: true
         style: simple
         explode: false
@@ -789,7 +789,7 @@ paths:
           example: 2
       - name: memNum
         in: path
-        description: 用戶序號
+        description: 按讚者序號
         required: true
         style: simple
         explode: false
@@ -968,6 +968,163 @@ paths:
                 proDM: https://www.nanshanlife.com.tw/NanshanWeb/file/DOCUMENT/7341
                 proTerms: https://www.nanshanlife.com.tw/NanshanWeb/file/DOCUMENT/7361
                 proStatus: 現售
+        "404":
+          description: 找不到api
+          content:
+            application/json:
+              example:
+                message: Not found
+        "500":
+          description: Server 端錯誤
+  /products/liked/{proNum}:
+    get:
+      tags:
+      - product
+      summary: 取得 商品按讚數
+      operationId: getProductLikes
+      parameters:
+      - name: proNum
+        in: path
+        description: 商品序號
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: number
+          example: 30
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              example:
+                Number: 1
+        "404":
+          description: 找不到api
+          content:
+            application/json:
+              example:
+                message: Not found
+        "500":
+          description: Server 端錯誤
+    post:
+      tags:
+      - product
+      summary: 商品按讚
+      description: RequestBody各項參數說明 <ul> <li>memNum：按讚者序號</li> </ul>
+      operationId: productLike
+      parameters:
+      - name: proNum
+        in: path
+        description: 商品序號
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: number
+          example: 30
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+            example:
+              memNum: 1
+          text/plain:
+            schema:
+              type: string
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              example:
+                message: 成功為貼文按讚
+        "404":
+          description: 找不到api
+          content:
+            application/json:
+              example:
+                message: Not found
+        "500":
+          description: Server 端錯誤
+  /products/liked/{proNum}/{memNum}:
+    delete:
+      tags:
+      - product
+      summary: 取消 商品按讚
+      operationId: removeProductLike
+      parameters:
+      - name: proNum
+        in: path
+        description: 商品序號
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: number
+          example: 43
+      - name: memNum
+        in: path
+        description: 按讚者序號
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: number
+          example: 2
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              example:
+                message: 成功取消貼文按讚
+        "404":
+          description: 找不到api
+          content:
+            application/json:
+              example:
+                message: Not found
+        "500":
+          description: Server 端錯誤
+    get:
+      tags:
+      - product
+      summary: 檢查用戶是否按讚
+      operationId: productLikeVerify
+      parameters:
+      - name: proNum
+        in: path
+        description: 商品序號
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: number
+          example: 30
+      - name: memNum
+        in: path
+        description: 按讚者序號
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: number
+          example: 1
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              example:
+                message: 已按讚
+        "400":
+          description: 找不到資訊
+          content:
+            application/json:
+              example:
+                message: 未按讚
         "404":
           description: 找不到api
           content:
