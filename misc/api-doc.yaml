@@ -1607,4 +1607,172 @@ paths:
                 message: Not found
         "500":
           description: Server 端錯誤
+  /collections/products-list/{memNum}:
+    get:
+      tags:
+      - collect
+      summary: 取得 用戶收藏的商品
+      operationId: getProductCollectList
+      parameters:
+      - name: memNum
+        in: path
+        description: 收藏者序號
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: number
+          example: 1
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              example:
+                - proNum: 16
+                  proCompany: 南山人壽
+                  proBigItem: "['還本/增額/年金型保險商品']"
+                  proSmallItem: "['終身型-外幣']"
+                  proKind: 主約
+                  proPeriod: 終身
+                  proName: 南山人壽美利雙鑫美元利率變動型還本終身保險(定期給付型)(6AUE)
+                  proRemark: ""
+                  proFeature: "['投保年齡：0歲~76歲', '第1保單年度末起，給付生存還本金', '年年有機會享有增值回饋分享金']"
+                  proContent: "['美元計價', '滿期保險金', '增值回饋分享金', '生存還本金', '身故給付', '完全失能給付']"
+                  proDM: https://www.nanshanlife.com.tw/NanshanWeb/file/DOCUMENT/13929
+                  proTerms: https://www.nanshanlife.com.tw/NanshanWeb/file/DOCUMENT/13953
+                  proStatus: 現售
+                - proNum: 71
+                  proCompany: 南山人壽
+                  proBigItem: "['醫療保險商品']"
+                  proSmallItem: "['意外傷害']"
+                  proKind: 主約
+                  proPeriod: 定期
+                  proName: 南山人壽一年期微型傷害保險(MPA)
+                  proRemark: ""
+                  proFeature: "['投保年齡：15足歲~55歲', '續保至60歲之保單年度末', '簡易投保免體檢']"
+                  proContent: "['意外失能', '意外身故']"
+                  proDM: https://www.nanshanlife.com.tw/NanshanWeb/file/DOCUMENT/9149
+                  proTerms: https://www.nanshanlife.com.tw/NanshanWeb/file/DOCUMENT/8101
+                  proStatus: 現售
+        "404":
+          description: 找不到api
+          content:
+            application/json:
+              example:
+                message: Not found
+        "500":
+          description: Server 端錯誤
+  /collections/products/{proNum}:
+    get:
+      tags:
+      - collect
+      summary: 取得 商品被收藏數
+      operationId: getProductCollect
+      parameters:
+      - name: proNum
+        in: path
+        description: 商品序號
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: number
+          example: 16
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              example:
+                Number: 1
+        "404":
+          description: 找不到api
+          content:
+            application/json:
+              example:
+                message: Not found
+        "500":
+          description: Server 端錯誤
+    post:
+      tags:
+      - collect
+      summary: 收藏商品
+      description: RequestBody各項參數說明 <ul> <li>memNum：收藏者序號</li> </ul>
+      operationId: productCollect
+      parameters:
+      - name: proNum
+        in: path
+        description: 商品序號
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: number
+          example: 16
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+            example:
+              memNum: 2
+          text/plain:
+            schema:
+              type: string
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              example:
+                message: 成功收藏了貼文
+        "404":
+          description: 找不到api
+          content:
+            application/json:
+              example:
+                message: Not found
+        "500":
+          description: Server 端錯誤
+  /collections/products/{proNum}/{memNum}:
+    delete:
+      tags:
+      - collect
+      summary: 取消 收藏商品
+      operationId: removeProductCollect
+      parameters:
+      - name: proNum
+        in: path
+        description: 商品序號
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: number
+          example: 16
+      - name: memNum
+        in: path
+        description: 收藏者序號
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: number
+          example: 2
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              example:
+                message: 成功取消貼文收藏
+        "404":
+          description: 找不到api
+          content:
+            application/json:
+              example:
+                message: Not found
+        "500":
+          description: Server 端錯誤
 components: {}
