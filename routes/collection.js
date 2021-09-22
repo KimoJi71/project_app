@@ -96,12 +96,50 @@ router.delete('/products/:proNum/:memNum', (req, res) => {
     })
 })
 
-//取得業務員被收藏數
-
 //取得用戶收藏的業務員
+router.get('/salesman-list/:memNum', (req, res) => {
+    const {memNum} = req.params
+
+    db.query(`SELECT members.memNum, members.memPhoto, members.memName, members.memIntro, members.memGender, members.memBirth, members.memCompany, members.companyContact, members.memService, members.memPhone, members.memLineID
+    FROM (salesmanCollect INNER JOIN members ON salesmanCollect.salesmanNum = members.memNum AND salesmanCollect.memNum = ${memNum})`)
+    .then((result) => {
+        res.json(result[0])
+    })
+})
+
+//取得業務員被收藏數
+router.get('/salesman/:salesmanNum', (req, res) => {
+    const {salesmanNum} = req.params
+
+    db.query(`SELECT COUNT(*) AS Number FROM salesmanCollect WHERE salesmanNum = ${salesmanNum}`)
+    .then((result) => {
+        res.json(result[0])
+    })
+})
 
 //收藏業務員
+router.post('/salesman/:salesmanNum', (req, res) => {
+    const {salesmanNum} = req.params
+    const memNum = req.body.memNum
+    
+    db.query(`INSERT INTO salesmanCollect (memNum, salesmanNum) VALUES ('${memNum}', '${salesmanNum}')`)
+    .then((result) => {
+        res.json({
+            message: '成功收藏了業務員'
+        })
+    })
+})
 
 //取消收藏業務員
+router.delete('/salesman/:salesmanNum/:memNum', (req, res) => {
+    const {salesmanNum, memNum} = req.params
+
+    db.query(`DELETE FROM salesmanCollect WHERE salesmanNum = '${salesmanNum}' AND memNum = '${memNum}'`)
+    .then((result) => {
+        res.json({
+            message: '成功取消業務員收藏'
+        })
+    })
+})
 
 module.exports = router
