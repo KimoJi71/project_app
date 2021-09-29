@@ -11,7 +11,6 @@ router.get('/', (req, res) => {
    }).join(' AND ')
 
   const sqlCommand = `SELECT * FROM products WHERE ${whereString.length === 0 ? 1 : whereString};`
-  console.log(sqlCommand)
 
   db.query(sqlCommand)
   .then(result => {
