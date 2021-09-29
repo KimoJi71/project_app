@@ -69,11 +69,9 @@ router.put('/update/:memNum', (req, res) => {
     let updateValues = values.filter((el) => {
         return el !== undefined
     }).join(', ')
-    console.log(`UPDATE members SET ${updateValues} WHERE memNum = ${memNum}`)
 
     db.query(`UPDATE members SET ${updateValues} WHERE memNum = ${memNum}`)
     .then((result) => {
-        console.log('1 row updated in members table')
         res.json({
             massage: '個人資料編輯成功'
         })
