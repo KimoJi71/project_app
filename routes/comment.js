@@ -21,10 +21,9 @@ router.post('/create/:postNum', (req, res) => {
     
     db.query(`INSERT INTO comments (postNum, memNum, commentContent) VALUES ('${postNum}', '${memNum}', '${commentContent}')`)
     .then((result) => {
-        console.log('1 record inserted into comments table')
-        res.json({
-            message: '留言新增成功'
-        })
+      res.json({
+          message: '留言新增成功'
+      })
     })
 })
 
@@ -35,10 +34,9 @@ router.put('/update/:commentNum', (req, res) => {
 
     db.query(`UPDATE comments SET commentContent = '${commentContent}' WHERE commentNum = '${commentNum}'`)
     .then((result) => {
-        console.log('1 row updated in comments table')
-        res.json({
-            message: '留言編輯成功'
-        })
+      res.json({
+          message: '留言編輯成功'
+      })
     })
 })
 
@@ -48,10 +46,9 @@ router.delete('/delete/:commentNum', (req, res) => {
 
     db.query(`DELETE FROM comments WHERE commentNum = '${commentNum}'`)
     .then((result) => {
-        console.log('1 row removed in comments table')
-        res.json({
-            message: '文章刪除成功'
-        })
+      res.json({
+          message: '文章刪除成功'
+      })
     })
 })
 
