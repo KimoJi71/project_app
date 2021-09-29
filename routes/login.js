@@ -74,7 +74,6 @@ router.post('/register', (req, res) => {
             db.query(sqlCommand)
             .then((err, results) => {
                 // if(err) throw err
-                console.log('1 record inserted.')
                 res.json({
                     status: '註冊成功'
                 })
@@ -89,9 +88,7 @@ router.post('/auth', (req,res) => {
     const memPassword = req.body.memPassword
     //尋找是否存在資料庫內
     db.query(`SELECT memAccount, memPassword FROM members WHERE memAccount = '${memAccount}' AND memPassword = '${memPassword}'`)
-    .then((result) => {
-        console.log(result[0][0])
-        
+    .then((result) => {        
         if(result[0][0] !== undefined) {
             res.json({
                 success: true
