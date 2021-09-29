@@ -30,7 +30,6 @@ router.post('/create', (req, res) => {
   }).join(', ')
 
   let sqlCommand = `INSERT INTO posts (${insertRows}) VALUES (${insertValues})`
-  console.log(sqlCommand)
   
   db.query(sqlCommand)
   .then((result) => {
