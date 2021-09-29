@@ -38,7 +38,7 @@ router.get('/products', (req, res) => {
 // 取得搜尋後的結果(用戶名)
 router.get('/members', (req, res) => {
     const {search} = req.query
-    const membersColumn = ['memName']
+    const membersColumn = ['memAccount', 'memName']
 
     const searchMembers = membersColumn.map((key) => {
         return `${key} LIKE '%${search}%'`
