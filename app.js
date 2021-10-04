@@ -3,11 +3,6 @@ const path = require('path')
 const cookieParser = require('cookie-parser')
 const bodyParser = require("body-parser")
 const logger = require('morgan')
-// const cors = require('cors')
-// const fs = require('fs')
-// const crypto = require('crypto')
-// const _ = require('lodash')
-// const multer = require('multer')
 
 /** Import Swagger Doc Modules Initial */
 const swaggerUi = require('swagger-ui-express');
@@ -38,9 +33,10 @@ app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false}))
-// app.use(cors())
 // Setup swagger doc router
 app.use('/v1/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+// Get images
+app.use('/public/images', express.static('./public/images'))
 
 // app.use('/index', indexRouter)
 app.use('/search', searchBarRouter)

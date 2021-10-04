@@ -1,5 +1,6 @@
 const express = require('express')
 const db = require('../models/db_connect')
+const imgController = require('../controllers/image')
 const router = express.Router()
 
 //取得個人資料
@@ -45,11 +46,11 @@ router.get('/:memNum', (req, res) => {
     })
 })
 //編輯個人資料
-router.put('/update/:memNum', (req, res) => {
+router.put('/update/:memNum', imgController.uploadImg.single('memPhoto'), (req, res) => {
     const {memNum} = req.params
     const updateData = {
         memPassword: req.body.memPassword,
-        memPhoto: req.body.memPhoto,
+        memPhoto: req.file.path,
         memName: req.body.memName,
         memIntro: req.body.memIntro,
         memGender: req.body.memGender,

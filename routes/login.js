@@ -1,9 +1,10 @@
 const express = require('express')
 const db = require('../models/db_connect')
+const imgController = require('../controllers/image')
 const router = express.Router()
 
 // 註冊會員資料
-router.post('/register', (req, res) => {
+router.post('/register', imgController.uploadImg.single('memPhoto'), (req, res) => {
     let insertColumns = null
     let insertValues = null
     let sqlCommand = ''
@@ -14,7 +15,7 @@ router.post('/register', (req, res) => {
             memAccount: req.body.memAccount,
             memPassword: req.body.memPassword,
             memIdentify: req.body.memIdentify,
-            memPhoto: req.body.memPhoto,
+            memPhoto: req.file.path,
             memName: req.body.memName,
             memIntro: req.body.memIntro,
             memGender: req.body.memGender,
@@ -38,7 +39,7 @@ router.post('/register', (req, res) => {
             memAccount: req.body.memAccount,
             memPassword: req.body.memPassword,
             memIdentify: req.body.memIdentify,
-            memPhoto: req.body.memPhoto,
+            memPhoto: req.file.path,
             memName: req.body.memName,
             memIntro: req.body.memIntro,
             memGender: req.body.memGender,
