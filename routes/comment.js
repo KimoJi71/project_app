@@ -1,14 +1,16 @@
-var express = require('express')
-var db = require('../models/db_connect')
-var router = express.Router()
+const express = require('express')
+const db = require('../models/db_connect')
+const router = express.Router()
 
 //取得留言
 router.get('/:postNum', (req, res) => {
     const {postNum} = req.params
-    db.query(`SELECT members.memName, members.memPhoto, comments.* FROM members INNER JOIN comments 
-              ON (members.memNum = comments.memNum AND comments.postNum = '${postNum}') ORDER BY commentCreateAt DESC`)
-      .then((result, fields) => {
-        res.json(result[0])
+    db.query(`
+    SELECT members.memName, members.memPhoto, comments.* FROM members INNER JOIN comments 
+    ON (members.memNum = comments.memNum AND comments.postNum = '${postNum}') ORDER BY commentCreateAt DESC`
+    )
+    .then((result, fields) => {
+      res.json(result[0])
     })
 })
 

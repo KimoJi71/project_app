@@ -1,6 +1,6 @@
-var express = require('express')
-var db = require('../models/db_connect')
-var router = express.Router()
+const express = require('express')
+const db = require('../models/db_connect')
+const router = express.Router()
 
 // 註冊會員資料
 router.post('/register', (req, res) => {

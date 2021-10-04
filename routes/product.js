@@ -1,12 +1,11 @@
-var express = require('express')
-var db = require('../models/db_connect')
-var router = express.Router()
+const express = require('express')
+const db = require('../models/db_connect')
+const router = express.Router()
 
 //取得商品
 router.get('/', (req, res) => {
   //抓取query的資料
   const whereString = Object.keys(req.query).map((key, idx) => {
-     console.log(key ,idx)
      return `${key} LIKE '%${Object.values(req.query)[idx]}%'`
    }).join(' AND ')
 

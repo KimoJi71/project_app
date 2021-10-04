@@ -1,15 +1,17 @@
-var express = require('express')
-var db = require('../models/db_connect')
-var router = express.Router()
+const express = require('express')
+const db = require('../models/db_connect')
+const router = express.Router()
 
 //取得用戶收藏的文章
 router.get('/posts-list/:memNum', (req, res) => {
     const {memNum} = req.params
 
-    db.query(`SELECT posts.*, members.memName, members.memPhoto
+    db.query(`
+    SELECT posts.*, members.memName, members.memPhoto
     FROM (postCollect INNER JOIN posts ON postCollect.postNum = posts.postNum AND postCollect.memNum = ${memNum})
     INNER JOIN members ON posts.memNum = members.memNum 
-    ORDER BY posts.postCreateAt DESC`)
+    ORDER BY posts.postCreateAt DESC`
+    )
     .then((result) => {
         res.json(result[0])
     })
@@ -54,8 +56,10 @@ router.delete('/posts/:postNum/:memNum', (req, res) => {
 router.get('/products-list/:memNum', (req, res) => {
     const {memNum} = req.params
 
-    db.query(`SELECT products.*
-    FROM (productCollect INNER JOIN products ON productCollect.proNum = products.proNum AND productCollect.memNum = ${memNum})`)
+    db.query(`
+    SELECT products.*
+    FROM (productCollect INNER JOIN products ON productCollect.proNum = products.proNum AND productCollect.memNum = ${memNum})`
+    )
     .then((result) => {
         res.json(result[0])
     })
@@ -100,8 +104,10 @@ router.delete('/products/:proNum/:memNum', (req, res) => {
 router.get('/salesman-list/:memNum', (req, res) => {
     const {memNum} = req.params
 
-    db.query(`SELECT members.memNum, members.memPhoto, members.memName, members.memIntro, members.memGender, members.memBirth, members.memCompany, members.companyContact, members.memService, members.memPhone, members.memLineID
-    FROM (salesmanCollect INNER JOIN members ON salesmanCollect.salesmanNum = members.memNum AND salesmanCollect.memNum = ${memNum})`)
+    db.query(`
+    SELECT members.memNum, members.memPhoto, members.memName, members.memIntro, members.memGender, members.memBirth, members.memCompany, members.companyContact, members.memService, members.memPhone, members.memLineID
+    FROM (salesmanCollect INNER JOIN members ON salesmanCollect.salesmanNum = members.memNum AND salesmanCollect.memNum = ${memNum})`
+    )
     .then((result) => {
         res.json(result[0])
     })

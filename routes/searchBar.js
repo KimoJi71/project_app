@@ -1,6 +1,6 @@
-var express = require('express')
-var db = require('../models/db_connect')
-var router = express.Router()
+const express = require('express')
+const db = require('../models/db_connect')
+const router = express.Router()
 
 // 取得搜尋後的結果(文章)
 router.get('/posts', (req, res) => {
@@ -11,10 +11,12 @@ router.get('/posts', (req, res) => {
         return `${key} LIKE '%${search}%'`
     }).join(' OR ')
 
-    db.query(`SELECT members.memName, members.memPhoto, posts.* 
+    db.query(`
+    SELECT members.memName, members.memPhoto, posts.* 
     FROM members 
     INNER JOIN posts ON members.memNum = posts.memNum AND ${searchPosts}
-    ORDER BY posts.postCreateAt DESC`)
+    ORDER BY posts.postCreateAt DESC`
+    )
     .then((result) => {
         res.json(result[0])
     })
