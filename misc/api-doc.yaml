@@ -1928,20 +1928,29 @@ paths:
                 message: Not found
         "500":
           description: Server 端錯誤
-  /search/posts:
+  /search:
     get:
       tags:
       - searchBar
-      summary: 取得 搜尋後的結果(文章)
-      operationId: searchPosts
+      summary: 取得 搜尋後的結果(文章or商品or用戶名)
+      operationId: search
       parameters:
-      - name: search
+      - name: keywords
         in: query
         description: 搜尋關鍵字
-        required: true
         schema:
           type: string
           example: 測試
+      - name: target
+        in: query
+        description: 搜尋目標
+        required: true
+        schema:
+          type: string
+          enum:
+            - posts
+            - products
+            - members
       responses:
         "200":
           description: OK
@@ -1990,81 +1999,12 @@ paths:
                   測試字數長度
                   測試字數長度
                   測試字數長度
-        "404":
-          description: 找不到api
+        "400":
+          description: 搜尋目標不在範圍內
           content:
             application/json:
               example:
-                message: Not found
-        "500":
-          description: Server 端錯誤
-  /search/products:
-    get:
-      tags:
-      - searchBar
-      summary: 取得 搜尋後的結果(商品)
-      operationId: searchProducts
-      parameters:
-      - name: search
-        in: query
-        description: 搜尋關鍵字
-        required: true
-        schema:
-          type: string
-          example: NTDD
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              example:
-                proNum: 1
-                proCompany: 南山人壽
-                proBigItem: "['壽險保障商品', '醫療保障商品']"
-                proSmallItem: "['定期壽險-台幣', '重大疾病與重大傷病', '癌症醫療']"
-                proKind: 主約
-                proPeriod: 定期
-                proName: 南山人壽新活力康祥定期健康保險(NTDD)
-                proRemark: ""
-                proFeature: "['投保年齡：15足歲~40歲', '7項重大疾病，輕/重度均有保障', '加強人生黃金期的階段性保障']"
-                proContent: "['身故給付', '完全失能給付', '重大疾病', '豁免保費']"
-                proDM: https://www.nanshanlife.com.tw/NanshanWeb/file/DOCUMENT/7341
-                proTerms: https://www.nanshanlife.com.tw/NanshanWeb/file/DOCUMENT/7361
-                proStatus: 現售
-        "404":
-          description: 找不到api
-          content:
-            application/json:
-              example:
-                message: Not found
-        "500":
-          description: Server 端錯誤
-  /search/members:
-    get:
-      tags:
-      - searchBar
-      summary: 取得 搜尋後的結果(用戶名)
-      operationId: searchMembers
-      parameters:
-      - name: search
-        in: query
-        description: 搜尋關鍵字
-        required: true
-        schema:
-          type: string
-          example: A
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              example:
-                - memNum: 2
-                  memAccount: fannyisfish
-                  memName: Fanny
-                - memNum: 3
-                  memAccount: abc123
-                  memName: ABC
+                message: Please select a valid value.
         "404":
           description: 找不到api
           content:
