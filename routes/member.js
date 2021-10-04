@@ -50,7 +50,7 @@ router.put('/update/:memNum', imgController.uploadImg.single('memPhoto'), (req, 
     const {memNum} = req.params
     const updateData = {
         memPassword: req.body.memPassword,
-        memPhoto: req.file.path,
+        memPhoto: req.file.filename,
         memName: req.body.memName,
         memIntro: req.body.memIntro,
         memGender: req.body.memGender,

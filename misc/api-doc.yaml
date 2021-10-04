@@ -135,13 +135,14 @@ paths:
                 postUpdateAt: 2021-09-02T02:27:17.000Z
                 postContent: 真是好系統！
               - memName: KimoJi
+                memPhoto: "1633331113104_1.png"
                 postNum: 2
                 memNum: 1
                 postCreateAt: 2021-09-02T02:28:46.000Z
                 postUpdateAt: 2021-09-02T02:28:46.000Z
                 postContent: 我最喜歡全球人壽的PHB！
               - memName: Fanny
-                memPhoto: ""
+                memPhoto: "1633331135718_2.jpg"
                 postNum: 3
                 memNum: 2
                 postCreateAt: 2021-09-02T02:29:54.000Z
@@ -321,7 +322,7 @@ paths:
             application/json:
               example:
               - memName: Fanny
-                memPhoto: ""
+                memPhoto: "1633331135718_2.jpg"
                 commentNum: 4
                 postNum: 2
                 memNum: 2
@@ -1160,7 +1161,7 @@ paths:
                   memAccount: fannyisfish
                   memPassword: t107A50034
                   memIdentify: 0
-                  memPhoto: ""
+                  memPhoto: "1633331135718_2.jpg"
                   memName: Fanny
                   memIntro: Fanny test
                   memGender: 1
@@ -1479,7 +1480,7 @@ paths:
                     測試字數長度
                     測試字數長度
                   memName: Fanny
-                  memPhoto: ""
+                  memPhoto: "1633331135718_2.jpg"
                 - postNum: 1
                   memNum: 3
                   postCreateAt: 2021-09-02T02:27:17.000Z
@@ -1958,7 +1959,7 @@ paths:
             application/json:
               example:
                 memName: Fanny
-                memPhoto: ""
+                memPhoto: "1633331135718_2.jpg"
                 postNum: 3
                 memNum: 2
                 postCreateAt: "2021-09-02T02:29:54.000Z"
