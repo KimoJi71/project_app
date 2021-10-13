@@ -18,7 +18,6 @@ const collectionRouter = require('./routes/collection')
 /* Setup Swagger Documentation File Resource */
 const swaggerDocument = YAML.load('./misc/api-doc.yaml');
 
-
 const app = express()
 
 // view engine setup
