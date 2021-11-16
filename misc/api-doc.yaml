@@ -21,7 +21,7 @@ paths:
       tags:
       - login
       summary: 註冊 會員資料
-      description: RequestBody各項參數說明 <ul> <li>memAccount：帳號</li> <li>memPassword：密碼</li> <li>memIdentify：身分(0為一般用戶，1為業務員)</li> <li>memPhoto：頭像</li> <li>memName：暱稱</li> <li>memIntro：簡介</li> <li>memGender：生理性別(0為男性，1為女性)</li> <li>memBirth：生日(格式：YYYY-MM-DD)</li> </ul> 身分為業務員須加填： <ul> <li>memCompany：所屬公司</li> <li>companyContact：公司聯絡方式</li> <li>memService：可提供服務</li> <li>memPhone：連絡資料-電話</li> <li>memLineID：連絡資料-LineID</li> </ul>
+      description: RequestBody各項參數說明 <ul> <li>memAccount：帳號</li> <li>memPassword：密碼</li> <li>memIdentify：身分(0為一般用戶，1為業務員)</li> <li>memName：暱稱</li> <li>memGender：生理性別(0為男性，1為女性)</li> <li>memBirth：生日(格式：YYYY-MM-DD)</li> </ul> 身分為業務員須加填： <ul> <li>memCompany：所屬公司</li> <li>companyContact：公司聯絡方式</li> <li>memService：可提供服務</li> <li>memPhone：連絡資料-電話</li> <li>memLineID：連絡資料-LineID</li> </ul>
       operationId: postRegister
       requestBody:
         content:
@@ -34,7 +34,6 @@ paths:
                 memPassword: test123
                 memIdentify: 1
                 memName: KimoJi
-                memIntro: 我只是個小小業務專員
                 memGender: 1
                 memBirth: 2000-07-01
                 memCompany: 遠見保經
@@ -47,7 +46,6 @@ paths:
                 memPassword: test123
                 memIdentify: 1
                 memName: KimoJi
-                memIntro: 我只是個小小業務專員
                 memGender: 1
                 memBirth: 2000-07-01
           text/plain:
