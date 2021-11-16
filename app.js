@@ -1,8 +1,9 @@
 const express = require('express')
 const path = require('path')
 const cookieParser = require('cookie-parser')
-const bodyParser = require("body-parser")
+const bodyParser = require('body-parser')
 const logger = require('morgan')
+const cors = require('cors')
 
 /** Import Swagger Doc Modules Initial */
 const swaggerUi = require('swagger-ui-express');
@@ -32,6 +33,7 @@ app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false}))
+app.use(cors())
 // Setup swagger doc router
 app.use('/v1/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 // Get images
@@ -45,6 +47,16 @@ app.use('/products', productsRouter)
 app.use('/members', memberRouter)
 app.use('/', loginRouter)
 app.use('/collections', collectionRouter)
+
+const corsOptions = {
+  origin: [
+    'http://localhost:8080',
+  ],
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+  allowedHeaders: ['Content-Type', 'Authorization'],
+};
+
+app.use(cors(corsOptions));
 
 console.log(`Server is running`)
 
