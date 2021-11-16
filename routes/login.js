@@ -2,6 +2,7 @@ const express = require('express')
 const db = require('../models/db_connect')
 const imgController = require('../controllers/image')
 const router = express.Router()
+const { encrypt } = require('../controllers/crypto')
 
 // 註冊會員資料
 router.post('/register', imgController.uploadImg.single('memPhoto'), (req, res) => {
@@ -13,7 +14,7 @@ router.post('/register', imgController.uploadImg.single('memPhoto'), (req, res) 
     if(req.body.memIdentify === '1') {
         const salesmanData = {
             memAccount: req.body.memAccount,
-            memPassword: req.body.memPassword,
+            memPassword: encrypt(req.body.memPassword).end_paw,
             memIdentify: req.body.memIdentify,
             // memPhoto: req.file.filename,
             memName: req.body.memName,
@@ -37,7 +38,7 @@ router.post('/register', imgController.uploadImg.single('memPhoto'), (req, res) 
     } else {
         const memData = {
             memAccount: req.body.memAccount,
-            memPassword: req.body.memPassword,
+            memPassword: encrypt(req.body.memPassword).end_paw,
             memIdentify: req.body.memIdentify,
             // memPhoto: req.file.filename,
             memName: req.body.memName,
@@ -86,7 +87,7 @@ router.post('/register', imgController.uploadImg.single('memPhoto'), (req, res) 
 //會員登入驗證
 router.post('/auth', (req,res) => {
     const memAccount = req.body.memAccount
-    const memPassword = req.body.memPassword
+    const memPassword = encrypt(req.body.memPassword).end_paw
     //尋找是否存在資料庫內
     db.query(`SELECT memAccount, memPassword FROM members WHERE memAccount = '${memAccount}' AND memPassword = '${memPassword}'`)
     .then((result) => {        

@@ -2,6 +2,7 @@ const express = require('express')
 const db = require('../models/db_connect')
 const imgController = require('../controllers/image')
 const router = express.Router()
+const { encrypt } = require('../controllers/crypto')
 
 //取得個人資料
 router.get('/:memNum', (req, res) => {
@@ -14,7 +15,6 @@ router.get('/:memNum', (req, res) => {
                 data: {
                     memNum: vm.memNum,
                     memAccount: vm.memAccount,
-                    memPassword: vm.memPassword,
                     memIdentify: vm.memIdentify,
                     memPhoto: vm.memPhoto,
                     memName: vm.memName,
@@ -33,7 +33,6 @@ router.get('/:memNum', (req, res) => {
                 data: {
                     memNum: vm.memNum,
                     memAccount: vm.memAccount,
-                    memPassword: vm.memPassword,
                     memIdentify: vm.memIdentify,
                     memPhoto: vm.memPhoto,
                     memName: vm.memName,
@@ -49,7 +48,7 @@ router.get('/:memNum', (req, res) => {
 router.put('/update/:memNum', imgController.uploadImg.single('memPhoto'), (req, res) => {
     const {memNum} = req.params
     const updateData = {
-        memPassword: req.body.memPassword,
+        memPassword: encrypt(req.body.memPassword).end_paw,
         memPhoto: req.file.filename,
         memName: req.body.memName,
         memIntro: req.body.memIntro,
