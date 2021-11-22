@@ -1,32 +1,28 @@
 const express = require('express')
 const db = require('../models/db_connect')
-const imgController = require('../controllers/image')
 const router = express.Router()
 const { encrypt } = require('../controllers/crypto')
 
 // 註冊會員資料
-router.post('/register', imgController.uploadImg.single('memPhoto'), (req, res) => {
+router.post('/register', (req, res) => {
     let insertColumns = null
     let insertValues = null
     let sqlCommand = ''
 
     //判斷身分為業務員or一般用戶
     if(req.body.memIdentify === '1') {
-        const salesmanData = {
-            memAccount: req.body.memAccount,
-            memPassword: encrypt(req.body.memPassword).end_paw,
-            memIdentify: req.body.memIdentify,
-            // memPhoto: req.file.filename,
-            memName: req.body.memName,
-            // memIntro: req.body.memIntro,
-            memGender: req.body.memGender,
-            memBirth: req.body.memBirth,
-            memCompany: req.body.memCompany,
-            companyContact: req.body.companyContact,
-            memService: req.body.memService,
-            memPhone: req.body.memPhone,
-            memLineID: req.body.memLineID,
-        }
+        let salesmanData = {}
+        if(req.body.memAccount !== '') salesmanData.memAccount = req.body.memAccount
+        if(req.body.memPassword !== '') salesmanData.memPassword = encrypt(req.body.memPassword).end_paw
+        if(req.body.memIdentify !== '') salesmanData.memIdentify = req.body.memIdentify
+        if(req.body.memName !== '') salesmanData.memName = req.body.memName
+        if(req.body.memGender !== '') salesmanData.memGender = req.body.memGender
+        if(req.body.memBirth !== '') salesmanData.memBirth = req.body.memBirth
+        if(req.body.memCompany !== '') salesmanData.memCompany = req.body.memCompany
+        if(req.body.companyContact !== '') salesmanData.companyContact = req.body.companyContact
+        if(req.body.memService !== '') salesmanData.memService = req.body.memService
+        if(req.body.memPhone !== '') salesmanData.memPhone = req.body.memPhone
+        if(req.body.memLineID !== '') salesmanData.memLineID = req.body.memLineID
         
         insertColumns = Object.keys(salesmanData).map((key) => {
             return `${key}`
@@ -36,16 +32,14 @@ router.post('/register', imgController.uploadImg.single('memPhoto'), (req, res) 
             return `'${salesmanData[key]}'`
         }).join(', ')
     } else {
-        const memData = {
-            memAccount: req.body.memAccount,
-            memPassword: encrypt(req.body.memPassword).end_paw,
-            memIdentify: req.body.memIdentify,
-            // memPhoto: req.file.filename,
-            memName: req.body.memName,
-            // memIntro: req.body.memIntro,
-            memGender: req.body.memGender,
-            memBirth: req.body.memBirth,
-        }
+        let memData = {}
+        if(req.body.memAccount !== '') memData.memAccount = req.body.memAccount
+        if(req.body.memPassword !== '') memData.memPassword = encrypt(req.body.memPassword).end_paw
+        if(req.body.memIdentify !== '') memData.memIdentify = req.body.memIdentify
+        if(req.body.memName !== '') memData.memName = req.body.memName
+        if(req.body.memGender !== '') memData.memGender = req.body.memGender
+        if(req.body.memBirth !== '') memData.memBirth = req.body.memBirth
+
         insertColumns = Object.keys(memData).map((key) => {
             return `${key}`
         }).join(', ')
