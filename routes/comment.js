@@ -49,7 +49,7 @@ router.delete('/delete/:commentNum', (req, res) => {
     db.query(`DELETE FROM comments WHERE commentNum = '${commentNum}'`)
     .then((result) => {
       res.json({
-          message: '文章刪除成功'
+          message: '留言刪除成功'
       })
     })
 })
