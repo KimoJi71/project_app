@@ -83,10 +83,11 @@ router.post('/auth', (req,res) => {
     const memAccount = req.body.memAccount
     const memPassword = encrypt(req.body.memPassword).end_paw
     //尋找是否存在資料庫內
-    db.query(`SELECT memAccount, memPassword FROM members WHERE memAccount = '${memAccount}' AND memPassword = '${memPassword}'`)
+    db.query(`SELECT memNum, memAccount, memPassword FROM members WHERE memAccount = '${memAccount}' AND memPassword = '${memPassword}'`)
     .then((result) => {        
         if(result[0][0] !== undefined) {
             res.json({
+                memNum: result[0][0].memNum,
                 success: true
             })
         } else {

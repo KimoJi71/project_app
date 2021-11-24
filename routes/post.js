@@ -5,7 +5,9 @@ const router = express.Router()
 //取得文章
 router.get('/', (req, res) => {
   db.query(`
-  SELECT members.memName, members.memPhoto, posts.* 
+  SELECT members.memNum, members.memName, members.memPhoto, posts.*,
+  (SELECT COUNT(*) FROM comments WHERE comments.postNum = posts.postNum) AS commentNumber,
+  (SELECT COUNT(*) FROM postLike WHERE postLike.postNum = posts.postNum) AS likeNumber
   FROM members 
   INNER JOIN posts ON members.memNum = posts.memNum
   ORDER BY posts.postCreateAt DESC`
@@ -18,20 +20,11 @@ router.get('/', (req, res) => {
 //新增文章
 router.post('/create', (req, res) => {
   //取得client端輸入之資料
-  const postData = {
-    memNum: req.body.memNum,
-    postContent: req.body.postContent
-  }
-  
-  let insertRows = Object.keys(postData).map((key) => {
-    return `${key}`
-  }).join(', ')
-  
-  let insertValues = Object.keys(postData).map((key) => {
-    return `'${postData[key]}'`
-  }).join(', ')
+    const memNum = req.body.memNum
+    const postContent = req.body.postContent
 
-  let sqlCommand = `INSERT INTO posts (${insertRows}) VALUES (${insertValues})`
+  let sqlCommand = `INSERT INTO posts (memNum, postContent) VALUES (${memNum}, '${postContent}')`
+  console.log(sqlCommand);
   
   db.query(sqlCommand)
   .then((result) => {
@@ -65,16 +58,6 @@ router.delete('/delete/:postNum', (req, res) => {
       message: '文章刪除成功'
     })
   }) 
-})
-
-//取得文章按讚數
-router.get('/liked/:postNum', (req, res) => {
-  const {postNum} = req.params
-
-  db.query(`SELECT COUNT(*) AS Number FROM postLike WHERE postNum = ${postNum}`)
-  .then((result) => {
-    res.json(result[0])
-  })
 })
 
 //文章按讚

@@ -97,6 +97,7 @@ paths:
           content:
             application/json:
               example:
+                memNum: 2
                 success: true
         "400":
           description: 帳號密碼有誤
@@ -125,21 +126,26 @@ paths:
           content:
             application/json:
               example:
-              - memName: ABC
+              - memNum: 3
+                memName: ABC
                 memPhoto: ""
                 postNum: 1
                 memNum: 3
                 postCreateAt: 2021-09-02T02:27:17.000Z
                 postUpdateAt: 2021-09-02T02:27:17.000Z
                 postContent: 真是好系統！
-              - memName: KimoJi
+                Number: 1
+              - memNum: 1
+                memName: KimoJi
                 memPhoto: "1633331113104_1.png"
                 postNum: 2
                 memNum: 1
                 postCreateAt: 2021-09-02T02:28:46.000Z
                 postUpdateAt: 2021-09-02T02:28:46.000Z
                 postContent: 我最喜歡全球人壽的PHB！
-              - memName: Fanny
+                Number: 2
+              - memNum: 2
+                memName: Fanny
                 memPhoto: "1633331135718_2.jpg"
                 postNum: 3
                 memNum: 2
@@ -181,6 +187,7 @@ paths:
                   測試字數長度
                   測試字數長度
                   測試字數長度
+                Number: 0
         "404":
           description: 找不到api
           content:
@@ -344,36 +351,6 @@ paths:
         "500":
           description: Server 端錯誤
   /posts/liked/{postNum}:
-    get:
-      tags:
-      - post
-      summary: 取得 文章按讚數
-      operationId: getPostLikes
-      parameters:
-      - name: postNum
-        in: path
-        description: 文章序號
-        required: true
-        style: simple
-        explode: false
-        schema:
-          type: number
-          example: 2
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              example:
-                Number: 1
-        "404":
-          description: 找不到api
-          content:
-            application/json:
-              example:
-                message: Not found
-        "500":
-          description: Server 端錯誤
     post:
       tags:
       - post
