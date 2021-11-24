@@ -543,7 +543,7 @@ paths:
             schema: {}
             example:
               memNum: 2
-              postContent: 我也這麼覺得！
+              commentContent: 我也這麼覺得！
           text/plain:
             schema:
               type: string
