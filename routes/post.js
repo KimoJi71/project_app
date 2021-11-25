@@ -96,7 +96,7 @@ router.get('/liked/:postNum/:memNum', (req, res) => {
           message: '已按讚'
       })
     } else {
-      res.status(400).json({
+      res.json({
         message: '未按讚'
       })
     }
