@@ -2,7 +2,7 @@ const express = require('express')
 const db = require('../models/db_connect')
 const imgController = require('../controllers/image')
 const router = express.Router()
-const { encrypt } = require('../controllers/crypto')
+// const { encrypt } = require('../controllers/crypto')
 
 //取得個人資料
 router.get('/:memNum', (req, res) => {
@@ -45,11 +45,12 @@ router.get('/:memNum', (req, res) => {
     })
 })
 //編輯個人資料
-router.put('/update/:memNum', imgController.uploadImg.single('memPhoto'), (req, res) => {
+// router.put('/update/:memNum', imgController.uploadImg.single('memPhoto'), (req, res) => {
+router.put('/update/:memNum', (req, res) => {
     const {memNum} = req.params
-    const updateData = {
-        memPassword: encrypt(req.body.memPassword).end_paw,
-        memPhoto: req.file.filename,
+    let updateData = {
+        // memPassword: encrypt(req.body.memPassword).end_paw,
+        // memPhoto: req.file.filename,
         memName: req.body.memName,
         memIntro: req.body.memIntro,
         memGender: req.body.memGender,
@@ -73,7 +74,7 @@ router.put('/update/:memNum', imgController.uploadImg.single('memPhoto'), (req, 
     db.query(`UPDATE members SET ${updateValues} WHERE memNum = ${memNum}`)
     .then((result) => {
         res.json({
-            massage: '個人資料編輯成功'
+            message: '個人資料編輯成功'
         })
     })
 })

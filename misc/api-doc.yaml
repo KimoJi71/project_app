@@ -1154,7 +1154,7 @@ paths:
       tags:
       - member
       summary: 編輯 個人資料
-      description: RequestBody各項參數說明 <ul> <li>memPassword：密碼</li> <li>memPhoto：頭像</li> <li>memName：暱稱</li> <li>memIntro：簡介</li> <li>memGender：生理性別(0為男性，1為女性)</li> <li>memBirth：生日(格式：YYYY-MM-DD)</li> </ul> 身分為業務員才可編輯的欄位： <ul> <li>memCompany：所屬公司</li> <li>companyContact：公司聯絡方式</li> <li>memService：可提供服務</li> <li>memPhone：連絡資料-電話</li> <li>memLineID：連絡資料-LineID</li> </ul>
+      description: RequestBody各項參數說明 <ul> <li>memName：暱稱</li> <li>memIntro：簡介</li> <li>memGender：生理性別(0為男性，1為女性)</li> <li>memBirth：生日(格式：YYYY-MM-DD)</li> </ul> 身分為業務員才可編輯的欄位： <ul> <li>memCompany：所屬公司</li> <li>companyContact：公司聯絡方式</li> <li>memService：可提供服務</li> <li>memPhone：連絡資料-電話</li> <li>memLineID：連絡資料-LineID</li> </ul>
       operationId: updateMemberInfo
       parameters:
       - name: memNum
@@ -1171,8 +1171,15 @@ paths:
           application/json:
             schema: {}
             example:
-              memPassword: asdfgh888
               memName: 野原新之助
+              memIntro: 測試測試
+              memGender: 0
+              memBirth: "1998-06-18"
+              memCompany: "南山人壽"
+              companyContact: "0911"
+              memService: "壽險"
+              memPhone: "0922"
+              memLineID: "test123"
           text/plain:
             schema:
               type: string
