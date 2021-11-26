@@ -1214,7 +1214,8 @@ paths:
           application/json:
             schema: {}
             example:
-              memPassword: "test123"
+              memOldPassword: "test123"
+              memNewPassword: "testqq"
           text/plain:
             schema:
               type: string

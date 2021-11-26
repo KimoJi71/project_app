@@ -82,16 +82,26 @@ router.put('/update/:memNum', (req, res) => {
 //變更密碼
 router.put('/update-password/:memNum', (req, res) => {
     const {memNum} = req.params
-    const memPassword = encrypt(req.body.memPassword).end_paw;
+    const memOldPassword = encrypt(req.body.memOldPassword).end_paw;
+    const memNewPassword = encrypt(req.body.memNewPassword).end_paw;
 
-    let sqlCommand = `UPDATE members SET memPassword = '${memPassword}' WHERE memNum = ${memNum}`
+    let sqlCommand = `UPDATE members SET memPassword = '${memNewPassword}' WHERE memNum = ${memNum}`
     console.log(sqlCommand);
 
-    db.query(sqlCommand)
+    db.query(`SELECT memPassword FROM members WHERE memPassword = '${memOldPassword}'`)
     .then((result) => {
-        res.json({
-            message: '變更密碼成功'
-        })
+        if(result[0][0] !== undefined) {
+            db.query(sqlCommand)
+            .then((result) => {
+                res.json({
+                    status: true
+                })
+            })
+        } else {
+            res.status(400).json({
+                status: false
+            })
+        }
     })
 })
 
