@@ -1193,6 +1193,47 @@ paths:
                 message: Not found
         "500":
           description: Server 端錯誤
+  /members/update-password/{memNum}:
+    put:
+      tags:
+      - member
+      summary: 變更 密碼
+      operationId: updateMemPassword
+      parameters:
+      - name: memNum
+        in: path
+        description: 用戶序號
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: number
+          example: 3
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+            example:
+              memPassword: "test123"
+          text/plain:
+            schema:
+              type: string
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              example:
+                message: 變更密碼成功
+        "404":
+          description: 找不到api
+          content:
+            application/json:
+              example:
+                message: Not found
+        "500":
+          description: Server 端錯誤
   /members/liked/{salesmanNum}:
     get:
       tags:

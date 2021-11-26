@@ -2,7 +2,7 @@ const express = require('express')
 const db = require('../models/db_connect')
 const imgController = require('../controllers/image')
 const router = express.Router()
-// const { encrypt } = require('../controllers/crypto')
+const { encrypt } = require('../controllers/crypto')
 
 //取得個人資料
 router.get('/:memNum', (req, res) => {
@@ -75,6 +75,22 @@ router.put('/update/:memNum', (req, res) => {
     .then((result) => {
         res.json({
             message: '個人資料編輯成功'
+        })
+    })
+})
+
+//變更密碼
+router.put('/update-password/:memNum', (req, res) => {
+    const {memNum} = req.params
+    const memPassword = encrypt(req.body.memPassword).end_paw;
+
+    let sqlCommand = `UPDATE members SET memPassword = '${memPassword}' WHERE memNum = ${memNum}`
+    console.log(sqlCommand);
+
+    db.query(sqlCommand)
+    .then((result) => {
+        res.json({
+            message: '變更密碼成功'
         })
     })
 })
