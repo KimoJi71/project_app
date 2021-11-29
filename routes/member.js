@@ -49,7 +49,6 @@ router.get('/:memNum', (req, res) => {
 router.put('/update/:memNum', (req, res) => {
     const {memNum} = req.params
     let updateData = {
-        // memPassword: encrypt(req.body.memPassword).end_paw,
         // memPhoto: req.file.filename,
         memName: req.body.memName,
         memIntro: req.body.memIntro,
@@ -64,12 +63,14 @@ router.put('/update/:memNum', (req, res) => {
 
     let values = Object.keys(updateData).map((key) => {
         if(updateData[key] !== undefined) {
-            return `${key} = '${updateData[key]}'`
+            return `${key} = "${updateData[key]}"`
         }
     })
     let updateValues = values.filter((el) => {
         return el !== undefined
     }).join(', ')
+
+    console.log(`UPDATE members SET ${updateValues} WHERE memNum = ${memNum}`);
 
     db.query(`UPDATE members SET ${updateValues} WHERE memNum = ${memNum}`)
     .then((result) => {
