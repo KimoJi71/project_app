@@ -70,8 +70,6 @@ router.put('/update/:memNum', (req, res) => {
         return el !== undefined
     }).join(', ')
 
-    console.log(`UPDATE members SET ${updateValues} WHERE memNum = ${memNum}`);
-
     db.query(`UPDATE members SET ${updateValues} WHERE memNum = ${memNum}`)
     .then((result) => {
         res.json({
