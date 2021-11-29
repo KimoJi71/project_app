@@ -126,68 +126,24 @@ paths:
           content:
             application/json:
               example:
-              - memNum: 3
-                memName: ABC
-                memPhoto: ""
-                postNum: 1
-                memNum: 3
-                postCreateAt: 2021-09-02T02:27:17.000Z
-                postUpdateAt: 2021-09-02T02:27:17.000Z
-                postContent: 真是好系統！
-                Number: 1
               - memNum: 1
                 memName: KimoJi
-                memPhoto: "1633331113104_1.png"
+                memPhoto: null
                 postNum: 2
-                memNum: 1
                 postCreateAt: 2021-09-02T02:28:46.000Z
-                postUpdateAt: 2021-09-02T02:28:46.000Z
-                postContent: 我最喜歡全球人壽的PHB！
-                Number: 2
-              - memNum: 2
-                memName: Fanny
-                memPhoto: "1633331135718_2.jpg"
-                postNum: 3
-                memNum: 2
-                postCreateAt: 2021-09-02T02:29:54.000Z
-                postUpdateAt: 2021-09-02T02:29:54.000Z
-                postContent: |-
-                  測試字數長度
-                  測試字數長度
-                  測試字數長度
-                  測試字數長度
-                  測試字數長度
-                  測試字數長度
-                  測試字數長度
-                  測試字數長度
-                  測試字數長度
-                  測試字數長度
-                  測試字數長度
-                  測試字數長度
-                  測試字數長度
-                  測試字數長度
-                  測試字數長度
-                  測試字數長度
-                  測試字數長度
-                  測試字數長度
-                  測試字數長度
-                  測試字數長度
-                  測試字數長度
-                  測試字數長度
-                  測試字數長度
-                  測試字數長度
-                  測試字數長度
-                  測試字數長度
-                  測試字數長度
-                  測試字數長度
-                  測試字數長度
-                  測試字數長度
-                  測試字數長度
-                  測試字數長度
-                  測試字數長度
-                  測試字數長度
-                  測試字數長度
-                Number: 0
+                postUpdateAt: 2021-11-29T06:00:25.000Z
+                postContent: 哈哈哈哈哈哈哈哈哈哈!!!
+                commentNumber: 2
+                likeNumber: 1
+              - memNum: 3
+                memName: 野原新之助
+                memPhoto: null
+                postNum: 1
+                postCreateAt: 2021-09-02T02:27:17.000Z
+                postUpdateAt: 2021-11-25T07:06:30.000Z
+                postContent: 我喜歡黃色！！！
+                commentNumber: 1
+                likeNumber: 2
         "404":
           description: 找不到api
           content:
@@ -947,36 +903,6 @@ paths:
         "500":
           description: Server 端錯誤
   /products/liked/{proNum}:
-    get:
-      tags:
-      - product
-      summary: 取得 商品按讚數
-      operationId: getProductLikes
-      parameters:
-      - name: proNum
-        in: path
-        description: 商品序號
-        required: true
-        style: simple
-        explode: false
-        schema:
-          type: number
-          example: 30
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              example:
-                Number: 1
-        "404":
-          description: 找不到api
-          content:
-            application/json:
-              example:
-                message: Not found
-        "500":
-          description: Server 端錯誤
     post:
       tags:
       - product
@@ -1009,7 +935,7 @@ paths:
           content:
             application/json:
               example:
-                message: 成功為貼文按讚
+                message: 成功為商品按讚
         "404":
           description: 找不到api
           content:
@@ -1049,7 +975,7 @@ paths:
           content:
             application/json:
               example:
-                message: 成功取消貼文按讚
+                message: 成功取消商品按讚
         "404":
           description: 找不到api
           content:
@@ -1089,12 +1015,6 @@ paths:
             application/json:
               example:
                 message: 已按讚
-        "400":
-          description: 找不到資訊
-          content:
-            application/json:
-              example:
-                message: 未按讚
         "404":
           description: 找不到api
           content:
@@ -1135,6 +1055,7 @@ paths:
                   memIntro: Fanny test
                   memGender: 1
                   memBirth: 2000-05-05T16:00:00.000Z
+                  likeNum: 0
         "404":
           description: 找不到api
           content:
@@ -1236,36 +1157,6 @@ paths:
         "500":
           description: Server 端錯誤
   /members/liked/{salesmanNum}:
-    get:
-      tags:
-      - member
-      summary: 取得 業務員按讚數
-      operationId: getSalesmanLikes
-      parameters:
-      - name: salesmanNum
-        in: path
-        description: 被按讚者(業務員)序號
-        required: true
-        style: simple
-        explode: false
-        schema:
-          type: number
-          example: 3
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              example:
-                Number: 1
-        "404":
-          description: 找不到api
-          content:
-            application/json:
-              example:
-                message: Not found
-        "500":
-          description: Server 端錯誤
     post:
       tags:
       - member
@@ -1378,12 +1269,6 @@ paths:
             application/json:
               example:
                 message: 已按讚
-        "400":
-          description: 找不到資訊
-          content:
-            application/json:
-              example:
-                message: 未按讚
         "404":
           description: 找不到api
           content:

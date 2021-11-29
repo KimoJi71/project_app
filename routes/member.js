@@ -7,7 +7,9 @@ const { encrypt } = require('../controllers/crypto')
 //取得個人資料
 router.get('/:memNum', (req, res) => {
     const {memNum} = req.params
-    db.query(`SELECT * FROM members WHERE memNum = ${memNum}`)
+    db.query(`SELECT *,
+    (SELECT COUNT(*) FROM salesmanLike WHERE salesmanLike.salesmanNum = members.memNum) AS likeNum
+    FROM members WHERE memNum = ${memNum}`)
     .then((result) => {
         const vm = result[0][0]
         if(result[0][0].memIdentify === 1) {
@@ -25,7 +27,8 @@ router.get('/:memNum', (req, res) => {
                     companyContact: vm.companyContact,
                     memService: vm.memService,
                     memPhone: vm.memPhone,
-                    memLineID: vm.memLineID
+                    memLineID: vm.memLineID,
+                    likeNum: vm.likeNum
                 }
             })
         } else {
@@ -38,7 +41,8 @@ router.get('/:memNum', (req, res) => {
                     memName: vm.memName,
                     memIntro: vm.memIntro,
                     memGender: vm.memGender,
-                    memBirth: vm.memBirth
+                    memBirth: vm.memBirth,
+                    likeNum: vm.likeNum
                 }
             })
         }
@@ -104,16 +108,6 @@ router.put('/update-password/:memNum', (req, res) => {
     })
 })
 
-//取得業務員按讚數
-router.get('/liked/:salesmanNum', (req, res) => {
-    const {salesmanNum} = req.params
-  
-    db.query(`SELECT COUNT(*) AS Number FROM salesmanLike WHERE salesmanNum = ${salesmanNum}`)
-    .then((result) => {
-      res.json(result[0])
-    })
-})
-
 //業務員按讚
 router.post('/liked/:salesmanNum', (req, res) => {
     const {salesmanNum} = req.params
@@ -150,7 +144,7 @@ router.get('/liked/:salesmanNum/:memNum', (req, res) => {
             message: '已按讚'
         })
       } else {
-        res.status(400).json({
+        res.json({
           message: '未按讚'
         })
       }

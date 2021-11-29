@@ -9,20 +9,12 @@ router.get('/', (req, res) => {
      return `${key} LIKE '%${Object.values(req.query)[idx]}%'`
    }).join(' AND ')
 
-  const sqlCommand = `SELECT * FROM products WHERE ${whereString.length === 0 ? 1 : whereString};`
+  const sqlCommand = `SELECT *,
+  (SELECT COUNT(*) FROM productLike WHERE productLike.proNum = products.proNum) AS likeNumber
+  FROM products WHERE ${whereString.length === 0 ? 1 : whereString};`
 
   db.query(sqlCommand)
   .then(result => {
-    res.json(result[0])
-  })
-})
-
-//取得商品按讚數
-router.get('/liked/:proNum', (req, res) => {
-  const {proNum} = req.params
-
-  db.query(`SELECT COUNT(*) AS Number FROM productLike WHERE proNum = ${proNum}`)
-  .then((result) => {
     res.json(result[0])
   })
 })
@@ -63,7 +55,7 @@ router.get('/liked/:proNum/:memNum', (req, res) => {
             message: '已按讚'
         })
       } else {
-        res.status(400).json({
+        res.json({
           message: '未按讚'
         })
       }
