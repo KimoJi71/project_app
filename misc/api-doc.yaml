@@ -1792,7 +1792,7 @@ paths:
                 message: Not found
         "500":
           description: Server 端錯誤
-  /collections/products/{salesmanNum}/{memNum}:
+  /collections/salesman/{salesmanNum}/{memNum}:
     delete:
       tags:
       - collect
