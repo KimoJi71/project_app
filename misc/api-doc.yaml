@@ -1698,6 +1698,7 @@ paths:
                   memService: 不賣保險的保險業務員
                   memPhone: "0911222111"
                   memLineID: abc123
+                  likeNum: 1
         "404":
           description: 找不到api
           content:

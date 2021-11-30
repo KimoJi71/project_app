@@ -108,7 +108,8 @@ router.get('/salesman-list/:memNum', (req, res) => {
     const {memNum} = req.params
 
     db.query(`
-    SELECT members.memNum, members.memPhoto, members.memName, members.memIntro, members.memGender, members.memBirth, members.memCompany, members.companyContact, members.memService, members.memPhone, members.memLineID
+    SELECT members.memNum, members.memPhoto, members.memName, members.memIntro, members.memGender, members.memBirth, members.memCompany, members.companyContact, members.memService, members.memPhone, members.memLineID,
+    (SELECT COUNT(*) FROM salesmanLike WHERE salesmanLike.salesmanNum = members.memNum) AS likeNum
     FROM (salesmanCollect INNER JOIN members ON salesmanCollect.salesmanNum = members.memNum AND salesmanCollect.memNum = ${memNum})`
     )
     .then((result) => {
