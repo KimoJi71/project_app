@@ -1345,7 +1345,7 @@ paths:
                 - postNum: 3
                   memNum: 2
                   postCreateAt: 2021-09-02T02:29:54.000Z
-                  postUpdateAt: 2021-09-02T02:29:54.000Z
+                  postUpdateAt: 2021-11-29T08:02:44.000Z
                   postContent: |-
                     測試字數長度
                     測試字數長度
@@ -1362,35 +1362,19 @@ paths:
                     測試字數長度
                     測試字數長度
                     測試字數長度
-                    測試字數長度
-                    測試字數長度
-                    測試字數長度
-                    測試字數長度
-                    測試字數長度
-                    測試字數長度
-                    測試字數長度
-                    測試字數長度
-                    測試字數長度
-                    測試字數長度
-                    測試字數長度
-                    測試字數長度
-                    測試字數長度
-                    測試字數長度
-                    測試字數長度
-                    測試字數長度
-                    測試字數長度
-                    測試字數長度
-                    測試字數長度
-                    測試字數長度
                   memName: Fanny
-                  memPhoto: "1633331135718_2.jpg"
+                  memPhoto: null
+                  commentNumber: 1
+                  likeNumber: 0
                 - postNum: 1
                   memNum: 3
                   postCreateAt: 2021-09-02T02:27:17.000Z
-                  postUpdateAt: 2021-09-02T02:27:17.000Z
-                  postContent: 真是好系統！
-                  memName: ABC
-                  memPhoto: ""
+                  postUpdateAt: 2021-11-25T07:06:30.000Z
+                  postContent: 我喜歡黃色！！！
+                  memName: 野原新之助
+                  memPhoto: null
+                  commentNumber: 1
+                  likeNumber: 2
         "404":
           description: 找不到api
           content:
@@ -1546,6 +1530,7 @@ paths:
                   proDM: https://www.nanshanlife.com.tw/NanshanWeb/file/DOCUMENT/13929
                   proTerms: https://www.nanshanlife.com.tw/NanshanWeb/file/DOCUMENT/13953
                   proStatus: 現售
+                  likeNumber: 0
                 - proNum: 71
                   proCompany: 南山人壽
                   proBigItem: "['醫療保險商品']"
@@ -1559,6 +1544,7 @@ paths:
                   proDM: https://www.nanshanlife.com.tw/NanshanWeb/file/DOCUMENT/9149
                   proTerms: https://www.nanshanlife.com.tw/NanshanWeb/file/DOCUMENT/8101
                   proStatus: 現售
+                  likeNumber: 0
         "404":
           description: 找不到api
           content:
