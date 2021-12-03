@@ -16,7 +16,7 @@ router.get('/', (req, res) => {
         }).join(' OR ')
     
         db.query(`
-        SELECT members.memNum, members.memName, members.memPhoto, posts.*,
+        SELECT members.memNum, members.memName, members.memPhoto, members.memIdentify, posts.*,
         (SELECT COUNT(*) FROM comments WHERE comments.postNum = posts.postNum) AS commentNumber,
         (SELECT COUNT(*) FROM postLike WHERE postLike.postNum = posts.postNum) AS likeNumber
         FROM members 
@@ -31,7 +31,9 @@ router.get('/', (req, res) => {
             return `${key} LIKE '%${keywords}%'`
         }).join(' OR ')
         
-        db.query(`SELECT * FROM products WHERE ${searchProducts}`)
+        db.query(`SELECT *,
+        (SELECT COUNT(*) FROM productLike WHERE productLike.proNum = products.proNum) AS likeNumber
+        FROM products WHERE ${searchProducts}`)
         .then((result) => {
             res.json(result[0])
         })
@@ -40,7 +42,7 @@ router.get('/', (req, res) => {
             return `${key} LIKE '%${keywords}%'`
         }).join(' OR ')
         
-        db.query(`SELECT memNum, memAccount, memName FROM members WHERE ${searchMembers}`)
+        db.query(`SELECT memNum, memAccount, memName, memPhoto, memIdentify FROM members WHERE ${searchMembers}`)
         .then((result) => {
             res.json(result[0])
         })

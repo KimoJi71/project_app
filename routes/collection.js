@@ -7,7 +7,7 @@ router.get('/posts-list/:memNum', (req, res) => {
     const {memNum} = req.params
 
     db.query(`
-    SELECT posts.*, members.memName, members.memPhoto,
+    SELECT posts.*, members.memName, members.memPhoto, members.memIdentify,
     (SELECT COUNT(*) FROM comments WHERE comments.postNum = posts.postNum) AS commentNumber,
     (SELECT COUNT(*) FROM postLike WHERE postLike.postNum = posts.postNum) AS likeNumber
     FROM (postCollect INNER JOIN posts ON postCollect.postNum = posts.postNum AND postCollect.memNum = ${memNum})

@@ -5,7 +5,7 @@ const router = express.Router()
 //取得文章
 router.get('/', (req, res) => {
   db.query(`
-  SELECT members.memNum, members.memName, members.memPhoto, posts.*,
+  SELECT members.memNum, members.memName, members.memPhoto, members.memIdentify, posts.*,
   (SELECT COUNT(*) FROM comments WHERE comments.postNum = posts.postNum) AS commentNumber,
   (SELECT COUNT(*) FROM postLike WHERE postLike.postNum = posts.postNum) AS likeNumber
   FROM members 

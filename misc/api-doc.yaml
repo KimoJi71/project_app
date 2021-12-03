@@ -129,6 +129,7 @@ paths:
               - memNum: 1
                 memName: KimoJi
                 memPhoto: null
+                memIdentify: 0
                 postNum: 2
                 postCreateAt: 2021-09-02T02:28:46.000Z
                 postUpdateAt: 2021-11-29T06:00:25.000Z
@@ -138,6 +139,7 @@ paths:
               - memNum: 3
                 memName: 野原新之助
                 memPhoto: null
+                memIdentify: 1
                 postNum: 1
                 postCreateAt: 2021-09-02T02:27:17.000Z
                 postUpdateAt: 2021-11-25T07:06:30.000Z
@@ -284,14 +286,16 @@ paths:
               example:
               - memName: Fanny
                 memPhoto: "1633331135718_2.jpg"
+                memIdentify: 0
                 commentNum: 4
                 postNum: 2
                 memNum: 2
                 commentCreateAt: 2021-09-06T07:14:53.000Z
                 commentUpdateAt: 2021-09-06T07:14:53.000Z
                 commentContent: 什麼時候可以完成TT
-              - memName: ABC
+              - memName: 野原新之助
                 memPhoto: ""
+                memIdentify: 1
                 commentNum: 3
                 postNum: 2
                 memNum: 3
@@ -1364,6 +1368,7 @@ paths:
                     測試字數長度
                   memName: Fanny
                   memPhoto: null
+                  memIdentify: 0
                   commentNumber: 1
                   likeNumber: 0
                 - postNum: 1
@@ -1373,6 +1378,7 @@ paths:
                   postContent: 我喜歡黃色！！！
                   memName: 野原新之助
                   memPhoto: null
+                  memIdentify: 1
                   commentNumber: 1
                   likeNumber: 2
         "404":
@@ -1850,6 +1856,7 @@ paths:
               example:
                 memName: Fanny
                 memPhoto: "1633331135718_2.jpg"
+                memIdentify: 0
                 postNum: 3
                 memNum: 2
                 postCreateAt: "2021-09-02T02:29:54.000Z"

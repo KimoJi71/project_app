@@ -6,7 +6,7 @@ const router = express.Router()
 router.get('/:postNum', (req, res) => {
     const {postNum} = req.params
     db.query(`
-    SELECT members.memName, members.memPhoto, comments.* FROM members INNER JOIN comments 
+    SELECT members.memName, members.memPhoto, members.memIdentify, comments.* FROM members INNER JOIN comments 
     ON (members.memNum = comments.memNum AND comments.postNum = '${postNum}') ORDER BY commentCreateAt DESC`
     )
     .then((result, fields) => {
