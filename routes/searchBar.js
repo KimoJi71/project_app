@@ -16,7 +16,9 @@ router.get('/', (req, res) => {
         }).join(' OR ')
     
         db.query(`
-        SELECT members.memName, members.memPhoto, posts.* 
+        SELECT members.memNum, members.memName, members.memPhoto, posts.*,
+        (SELECT COUNT(*) FROM comments WHERE comments.postNum = posts.postNum) AS commentNumber,
+        (SELECT COUNT(*) FROM postLike WHERE postLike.postNum = posts.postNum) AS likeNumber
         FROM members 
         INNER JOIN posts ON members.memNum = posts.memNum AND ${searchPosts}
         ORDER BY posts.postCreateAt DESC`
