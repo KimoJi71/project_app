@@ -6,7 +6,9 @@ const router = express.Router()
 router.get('/:postNum', (req, res) => {
     const {postNum} = req.params
     db.query(`
-    SELECT members.memName, members.memPhoto, members.memIdentify, comments.* FROM members INNER JOIN comments 
+    SELECT members.memName, members.memPhoto, members.memIdentify, comments.*,
+    (SELECT COUNT(*) FROM commentLike WHERE commentLike.commentNum = comments.commentNum) AS likeNumber
+    FROM members INNER JOIN comments 
     ON (members.memNum = comments.memNum AND comments.postNum = '${postNum}') ORDER BY commentCreateAt DESC`
     )
     .then((result, fields) => {
@@ -54,16 +56,6 @@ router.delete('/delete/:commentNum', (req, res) => {
     })
 })
 
-//取得留言按讚數
-router.get('/liked/:commentNum', (req, res) => {
-    const {commentNum} = req.params
-  
-    db.query(`SELECT COUNT(*) AS Number FROM commentLike WHERE commentNum = ${commentNum}`)
-    .then((result) => {
-      res.json(result[0])
-    })
-})
-
 //留言按讚
 router.post('/liked/:commentNum', (req, res) => {
     const {commentNum} = req.params
@@ -100,7 +92,7 @@ router.get('/liked/:commentNum/:memNum', (req, res) => {
             message: '已按讚'
         })
       } else {
-        res.status(400).json({
+        res.json({
           message: '未按讚'
         })
       }

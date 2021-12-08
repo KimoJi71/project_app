@@ -18,7 +18,7 @@ router.get('/:memNum', (req, res) => {
                     memNum: vm.memNum,
                     memAccount: vm.memAccount,
                     memIdentify: vm.memIdentify,
-                    memPhoto: vm.memPhoto,
+                    memPhoto: vm.memPhoto === null ? vm.memPhoto : 'http://localhost:3000/images\\' + vm.memPhoto,
                     memName: vm.memName,
                     memIntro: vm.memIntro,
                     memGender: vm.memGender,
@@ -37,7 +37,7 @@ router.get('/:memNum', (req, res) => {
                     memNum: vm.memNum,
                     memAccount: vm.memAccount,
                     memIdentify: vm.memIdentify,
-                    memPhoto: vm.memPhoto,
+                    memPhoto: vm.memPhoto === null ? vm.memPhoto : 'http://localhost:3000/images\\' + vm.memPhoto,
                     memName: vm.memName,
                     memIntro: vm.memIntro,
                     memGender: vm.memGender,
@@ -49,11 +49,9 @@ router.get('/:memNum', (req, res) => {
     })
 })
 //編輯個人資料
-// router.put('/update/:memNum', imgController.uploadImg.single('memPhoto'), (req, res) => {
 router.put('/update/:memNum', (req, res) => {
     const {memNum} = req.params
     let updateData = {
-        // memPhoto: req.file.filename,
         memName: req.body.memName,
         memIntro: req.body.memIntro,
         memGender: req.body.memGender,
@@ -164,6 +162,5 @@ router.post('/report/:salesmanNum', (req, res) => {
       })
     })
 })
-//收藏數
 
 module.exports = router

@@ -117,6 +117,4 @@ router.post('/report/:postNum', (req, res) => {
   })
 })
 
-//收藏
-
 module.exports = router

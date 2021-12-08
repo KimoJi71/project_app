@@ -62,6 +62,4 @@ router.get('/liked/:proNum/:memNum', (req, res) => {
     })
 })
 
-//收藏
-
 module.exports = router

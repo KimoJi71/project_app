@@ -596,37 +596,6 @@ paths:
                 message: Not found
         "500":
           description: Server 端錯誤
-  /comments/liked/{commentNum}:
-    get:
-      tags:
-      - comment
-      summary: 取得 留言按讚數
-      operationId: getCommentLikes
-      parameters:
-      - name: commentNum
-        in: path
-        description: 留言序號
-        required: true
-        style: simple
-        explode: false
-        schema:
-          type: number
-          example: 2
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              example:
-                Number: 2
-        "404":
-          description: 找不到api
-          content:
-            application/json:
-              example:
-                message: Not found
-        "500":
-          description: Server 端錯誤
     post:
       tags:
       - comment
