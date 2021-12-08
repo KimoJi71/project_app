@@ -8,8 +8,6 @@ router.post('/upload/:memNum', imgController.uploadImg.single('memPhoto'), (req,
     const {memNum} = req.params
     const memPhoto = req.file.filename
 
-    console.log(memPhoto);
-
     db.query(`UPDATE members SET memPhoto = '${memPhoto}' WHERE memNum = ${memNum}`)
     .then((result) => {
         res.json({
