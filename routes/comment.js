@@ -9,7 +9,7 @@ router.get('/:postNum', (req, res) => {
     SELECT members.memName, members.memPhoto, members.memIdentify, comments.*,
     (SELECT COUNT(*) FROM commentLike WHERE commentLike.commentNum = comments.commentNum) AS likeNumber
     FROM members INNER JOIN comments 
-    ON (members.memNum = comments.memNum AND comments.postNum = '${postNum}') ORDER BY commentCreateAt DESC`
+    ON (members.memNum = comments.memNum AND comments.postNum = '${postNum}') ORDER BY commentCreateAt ASC`
     )
     .then((result, fields) => {
       res.json(result[0])
