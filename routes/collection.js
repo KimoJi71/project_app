@@ -118,10 +118,11 @@ router.get('/salesman-list/:memNum', (req, res) => {
 })
 
 //取得業務員被收藏數
-router.get('/salesman/:salesmanNum', (req, res) => {
-    const {salesmanNum} = req.params
-
-    db.query(`SELECT COUNT(*) AS Number FROM salesmanCollect WHERE salesmanNum = ${salesmanNum}`)
+router.get('/salesman-rank', (req, res) => {
+    db.query(`SELECT members.memName, members.memPhoto, salesmanCollect.salesmanNum,
+    (SELECT COUNT(*) FROM salesmanCollect WHERE salesmanCollect.salesmanNum = members.memNum) AS Number
+    FROM salesmanCollect
+    INNER JOIN members ON salesmanCollect.salesmanNum = members.memNum GROUP BY salesmanNum ASC`)
     .then((result) => {
         res.json(result[0])
     })

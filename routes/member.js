@@ -64,7 +64,7 @@ router.put('/update/:memNum', (req, res) => {
     }
 
     let values = Object.keys(updateData).map((key) => {
-        if(updateData[key] !== undefined) {
+        if(updateData[key] !== undefined && updateData[key] !== null && updateData[key] !== "") {
             return `${key} = "${updateData[key]}"`
         }
     })
@@ -87,7 +87,6 @@ router.put('/update-password/:memNum', (req, res) => {
     const memNewPassword = encrypt(req.body.memNewPassword).end_paw;
 
     let sqlCommand = `UPDATE members SET memPassword = '${memNewPassword}' WHERE memNum = ${memNum}`
-    console.log(sqlCommand);
 
     db.query(`SELECT memPassword FROM members WHERE memPassword = '${memOldPassword}'`)
     .then((result) => {

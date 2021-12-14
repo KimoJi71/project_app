@@ -8,7 +8,7 @@ router.get('/', (req, res) => {
     const {target} = req.query
     const postsColumn = ['posts.postContent']
     const productsColumn = ['proCompany', 'proBigItem', 'proSmallItem', 'proKind', 'proPeriod', 'proName', 'proRemark', 'proFeature', 'proContent', 'proStatus']
-    const membersColumn = ['memAccount', 'memName']
+    const membersColumn = ['memName']
 
     if(target === 'posts') {
         const searchPosts = postsColumn.map((key) => {

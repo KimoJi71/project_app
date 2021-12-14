@@ -17,6 +17,7 @@ const memberRouter = require('./routes/member')
 const imageRouter = require('./routes/image')
 const loginRouter = require('./routes/login')
 const collectionRouter = require('./routes/collection')
+const FAQRouter = require('./routes/FAQ')
 /* Setup Swagger Documentation File Resource */
 const swaggerDocument = YAML.load('./misc/api-doc.yaml')
 
@@ -49,6 +50,7 @@ app.use('/members', memberRouter)
 app.use('/images', imageRouter)
 app.use('/', loginRouter)
 app.use('/collections', collectionRouter)
+app.use('/FAQ', FAQRouter)
 
 const corsOptions = {
   origin: [

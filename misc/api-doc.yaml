@@ -1682,29 +1682,22 @@ paths:
                 message: Not found
         "500":
           description: Server 端錯誤
-  /collections/salesman/{salesmanNum}:
+  /collections/salesman-rank:
     get:
       tags:
       - collect
       summary: 取得 業務員被收藏數
       operationId: getSalesmanCollect
-      parameters:
-      - name: salesmanNum
-        in: path
-        description: 被收藏者(業務員)序號
-        required: true
-        style: simple
-        explode: false
-        schema:
-          type: number
-          example: 3
       responses:
         "200":
           description: OK
           content:
             application/json:
               example:
-                Number: 2
+                - memName: 野原新之助
+                  memPhoto: null
+                  salesmanNum: 3
+                  Number: 2
         "404":
           description: 找不到api
           content:
@@ -1854,6 +1847,29 @@ paths:
             application/json:
               example:
                 message: Please select a valid value.
+        "404":
+          description: 找不到api
+          content:
+            application/json:
+              example:
+                message: Not found
+        "500":
+          description: Server 端錯誤
+  /FAQ:
+    get:
+      tags:
+      - FAQ
+      summary: 取得 常見問題
+      operationId: getFAQ
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              example:
+                - serNum: 1
+                  question: 有哪些功能是沒有登入就可以使用的呢？
+                  answer: 您可以使用基本的保單查詢功能，也可以查看平台上其他使用者的發文內容。若想要使用更進階的功能，就必須要註冊登入才能做使用。
         "404":
           description: 找不到api
           content:

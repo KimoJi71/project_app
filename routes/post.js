@@ -24,7 +24,6 @@ router.post('/create', (req, res) => {
     const postContent = req.body.postContent
 
   let sqlCommand = `INSERT INTO posts (memNum, postContent) VALUES (${memNum}, '${postContent}')`
-  console.log(sqlCommand);
   
   db.query(sqlCommand)
   .then((result) => {
