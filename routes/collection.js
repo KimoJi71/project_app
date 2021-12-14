@@ -122,7 +122,7 @@ router.get('/salesman-rank', (req, res) => {
     db.query(`SELECT members.memName, members.memPhoto, salesmanCollect.salesmanNum,
     (SELECT COUNT(*) FROM salesmanCollect WHERE salesmanCollect.salesmanNum = members.memNum) AS Number
     FROM salesmanCollect
-    INNER JOIN members ON salesmanCollect.salesmanNum = members.memNum GROUP BY salesmanNum ASC`)
+    INNER JOIN members ON salesmanCollect.salesmanNum = members.memNum GROUP BY salesmanNum ORDER BY Number DESC`)
     .then((result) => {
         res.json(result[0])
     })
