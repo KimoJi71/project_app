@@ -783,14 +783,6 @@ paths:
         explode: true
         schema:
           type: string
-      - name: proSmallItem
-        in: query
-        description: 商品分類小項
-        required: false
-        style: form
-        explode: true
-        schema:
-          type: string
       - name: proKind
         in: query
         description: 主約or附約
@@ -857,7 +849,6 @@ paths:
               - proNum: 1
                 proCompany: 南山人壽
                 proBigItem: '[''壽險保障商品'', ''醫療保障商品'']'
-                proSmallItem: '[''定期壽險-台幣'', ''重大疾病與重大傷病'', ''癌症醫療'']'
                 proKind: 主約
                 proPeriod: 定期
                 proName: 南山人壽新活力康祥定期健康保險(NTDD)
@@ -1495,7 +1486,6 @@ paths:
                 - proNum: 16
                   proCompany: 南山人壽
                   proBigItem: "['還本/增額/年金型保險商品']"
-                  proSmallItem: "['終身型-外幣']"
                   proKind: 主約
                   proPeriod: 終身
                   proName: 南山人壽美利雙鑫美元利率變動型還本終身保險(定期給付型)(6AUE)
@@ -1509,7 +1499,6 @@ paths:
                 - proNum: 71
                   proCompany: 南山人壽
                   proBigItem: "['醫療保險商品']"
-                  proSmallItem: "['意外傷害']"
                   proKind: 主約
                   proPeriod: 定期
                   proName: 南山人壽一年期微型傷害保險(MPA)
